@@ -19,14 +19,15 @@
 <meta property="og:url" content="https://marstek.philippian.ph/">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#060B2E">
+<meta name="theme-color" content="#060B2E" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#04081B" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://marstek.philippian.ph/">
 <link rel="icon" href="images/logo.png">
 
 <script>
-// Applies the saved theme before first paint so there's no flash. Dark is the default.
-(function(){try{if(localStorage.getItem('theme')==='light'){
-  document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();
+// Applies the saved theme before first paint so there's no flash. Light is the default.
+(function(){try{if(localStorage.getItem('theme')==='dark'){
+  document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,26 +56,38 @@
   --step-3:clamp(2.4rem, 1.7rem + 3.4vw, 5rem);
 }
 
-/* ---------- theme: dark is the default ---------- */
+/* ---------- theme: light is the default ---------- */
+/* Light alternates bright reading areas against the brand-dark bands, which is
+   where the design gets its rhythm. Dark mode keeps the same elevation ramp. */
 :root{
-  color-scheme:dark;
-  --page:#060B2E;
-  --page-alt:#0A1138;
-  --surface:#0E1746;
-  --text:#ffffff;
-  --text-dim:#a8b4dd;
-  --line:#22306e;
-  --meter-off-c:rgba(255,255,255,.10);
-}
-[data-theme="light"]{
   color-scheme:light;
   --page:#ffffff;
   --page-alt:#eef3fe;
+  --brand-band:#060B2E;
   --surface:#ffffff;
   --text:#060B2E;
   --text-dim:#4e5b7e;
   --line:#c6d2ec;
+  --line-strong:#a9bbe2;
   --meter-off-c:rgba(6,11,46,.09);
+  --plate:#ffffff;
+  --card-lift:none;
+  --glow:.32;
+}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#04081B;        /* deepest — page base */
+  --page-alt:#0A123D;    /* products band */
+  --brand-band:#0D1953;  /* hero, buy now, header, footer */
+  --surface:#1B255B;     /* cards, lifted clearly off the band */
+  --text:#EEF3FF;
+  --text-dim:#B4C2EA;
+  --line:rgba(255,255,255,.13);
+  --line-strong:rgba(255,255,255,.22);
+  --meter-off-c:rgba(255,255,255,.10);
+  --plate:linear-gradient(180deg,#f4f7fd 0%,#dfe7f6 100%);
+  --card-lift:0 1px 0 rgba(255,255,255,.06) inset, 0 10px 28px rgba(0,0,0,.34);
+  --glow:.5;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -138,8 +151,8 @@ html{
 /* ---------- header (always brand dark) ---------- */
 .masthead{
   position:sticky;top:0;z-index:50;
-  background:var(--deep);color:#fff;
-  border-bottom:1px solid var(--deep-line);
+  background:var(--brand-band);color:#fff;
+  border-bottom:1px solid var(--line-strong);
 }
 .masthead__inner{
   display:flex;align-items:center;justify-content:space-between;
@@ -177,18 +190,31 @@ html{
 .themer svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round}
 .themer .icon-sun{display:none}
-[data-theme="light"] .themer .icon-sun{display:block}
-[data-theme="light"] .themer .icon-moon{display:none}
+.themer .icon-moon{display:block}
+[data-theme="dark"] .themer .icon-sun{display:block}
+[data-theme="dark"] .themer .icon-moon{display:none}
 
 /* ---------- hero (always brand dark) ---------- */
 .hero{
-  position:relative;background:var(--deep);color:#fff;
+  position:relative;background:var(--brand-band);color:#fff;
   padding-block:clamp(3.5rem,9vw,7rem) clamp(3rem,7vw,5.5rem);
   overflow:hidden;
 }
 .hero::after{
   content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--sweep);
 }
+
+/* The catalogue separates its dark panels with a blue wash; same idea, dialled down.
+   Sits behind content and never intercepts clicks. */
+.hero::before,
+.band--ink::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(70% 90% at 88% 8%, rgba(0,166,247,calc(.20 * var(--glow))) 0%, transparent 62%),
+    radial-gradient(60% 80% at 6% 100%, rgba(46,30,252,calc(.26 * var(--glow))) 0%, transparent 60%);
+}
+.hero > .shell,
+.band--ink > .shell{position:relative;z-index:1}
 .hero__grid{position:relative;display:grid;gap:clamp(2.5rem,5vw,4rem);grid-template-columns:1fr}
 @media (min-width:900px){.hero__grid{grid-template-columns:1.15fr .85fr;align-items:end}}
 .hero h1{font-size:var(--step-3)}
@@ -234,7 +260,7 @@ html{
 /* ---------- bands ---------- */
 .band{padding-block:clamp(3.5rem,8vw,6.5rem)}
 .band--mist{background:var(--page-alt)}
-.band--ink{background:var(--deep);color:#fff}
+.band--ink{position:relative;overflow:hidden;background:var(--brand-band);color:#fff}
 
 .band__head{margin-bottom:clamp(2rem,4vw,3rem)}
 .band__head h2{font-size:var(--step-2)}
@@ -252,7 +278,7 @@ html{
 /* ---------- product groups ---------- */
 .group{
   font-size:var(--step-1);font-variation-settings:'wdth' 112,'wght' 700;
-  margin:0 0 .75rem;padding-bottom:.6rem;border-bottom:1px solid var(--line);
+  margin:0 0 .75rem;padding-bottom:.6rem;border-bottom:1px solid var(--line-strong);
 }
 .group__intro{margin:0 0 1.5rem;color:var(--text-dim);max-width:60ch;font-size:var(--step--1)}
 .products,.banks{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
@@ -264,13 +290,14 @@ html{
 
 .product{
   background:var(--surface);border:1px solid var(--line);border-radius:6px;
+  box-shadow:var(--card-lift);
   padding:1.5rem;display:flex;flex-direction:column;gap:1.15rem;
 }
 .product__shot{
-  background:#fff;border:1px solid var(--line);border-radius:4px;
+  background:var(--plate);border:1px solid var(--line);border-radius:4px;
   aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;
 }
-.product__shot img{width:100%;height:100%;object-fit:contain;padding:8%;background:#fff}
+.product__shot img{width:100%;height:100%;object-fit:contain;padding:8%}
 .product__shot--empty{
   background:transparent;border-style:dashed;
   color:var(--text-dim);font-size:var(--step--1);
@@ -308,6 +335,7 @@ html{
 @media (min-width:1040px){.banks{grid-template-columns:repeat(4,1fr)}}
 .bank{
   background:var(--surface);border:1px solid var(--line);border-radius:6px;
+  box-shadow:var(--card-lift);
   padding:1.4rem;display:grid;gap:.85rem;align-content:start;
 }
 .bank h4{margin:0;font-size:var(--step-1);font-variation-settings:'wdth' 112,'wght' 700;line-height:1.1}
@@ -323,7 +351,8 @@ html{
 .agents{display:grid;gap:1.25rem;grid-template-columns:1fr}
 @media (min-width:760px){.agents{grid-template-columns:repeat(2,1fr)}}
 .agent{
-  border:1px solid var(--line);border-left:3px solid var(--volt-2);
+  box-shadow:var(--card-lift);
+  border:1px solid var(--line);border-left:3px solid var(--volt-3);
   border-radius:6px;padding:1.4rem 1.5rem;background:var(--surface);
   display:grid;gap:.7rem;
 }
@@ -333,8 +362,8 @@ html{
 .agent__area{font-size:var(--step--1);color:var(--text-dim);margin:0}
 .agent h3{margin:0;font-size:var(--step-1);font-variation-settings:'wdth' 112,'wght' 700;line-height:1.15}
 .agent__links{display:flex;flex-wrap:wrap;gap:.5rem .9rem;font-size:var(--step--1)}
-.agent__links a{color:var(--volt-3);font-variation-settings:'wdth' 105,'wght' 600;text-underline-offset:3px}
-[data-theme="light"] .agent__links a{color:var(--volt-2)}
+.agent__links a{color:var(--volt-2);font-variation-settings:'wdth' 105,'wght' 600;text-underline-offset:3px}
+[data-theme="dark"] .agent__links a{color:var(--volt-3)}
 
 /* ---------- how to order ---------- */
 .steps{
@@ -355,7 +384,7 @@ html{
 
 /* ---------- footer ---------- */
 .footer{
-  background:var(--deep);color:#8c9ac9;
+  background:var(--brand-band);color:#a5b3dd;
   border-top:1px solid var(--deep-line);padding-block:2.5rem;font-size:var(--step--1);
 }
 .footer__inner{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center}
@@ -376,7 +405,7 @@ html{
       <a href="#products">Products</a>
       <a href="#agents">Agents</a>
       <a class="nav__cta" href="#buy">Buy now</a>
-      <button class="themer" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+      <button class="themer" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
         <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></svg>
       </button>
@@ -952,19 +981,19 @@ html{
   window.addEventListener('resize', tuneSnap);
   window.addEventListener('load', tuneSnap);
 
-  // Theme toggle. Dark is the default; the choice is remembered where storage allows.
+  // Theme toggle. Light is the default; the choice is remembered where storage allows.
   var root = document.documentElement, btn = document.getElementById('themeToggle');
   function paint(){
-    var light = root.getAttribute('data-theme') === 'light';
-    btn.setAttribute('aria-pressed', light ? 'true' : 'false');
-    btn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+    var dark = root.getAttribute('data-theme') === 'dark';
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
   }
   if(btn){
     paint();
     btn.addEventListener('click', function(){
-      var light = root.getAttribute('data-theme') === 'light';
-      if(light){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme','light'); }
-      try{ localStorage.setItem('theme', light ? 'dark' : 'light'); }catch(e){}
+      var dark = root.getAttribute('data-theme') === 'dark';
+      if(dark){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme','dark'); }
+      try{ localStorage.setItem('theme', dark ? 'light' : 'dark'); }catch(e){}
       paint();
     });
   }
