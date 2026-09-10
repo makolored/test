@@ -1,25 +1,804 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-PH">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Website</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============================================================
+     EDIT THESE FIRST — they control your Google listing and the
+     preview card people see when your link is shared on
+     Facebook or Messenger.
+     ============================================================ -->
+<title>Marstek Energy PH — Home battery storage in the Philippines</title>
+<meta name="description" content="Marstek home battery and solar storage systems, supplied and supported in the Philippines. Keep the lights on through brownouts and cut your monthly bill.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Marstek Energy PH — Home battery storage">
+<meta property="og:description" content="Marstek home battery and solar storage systems, supplied and supported in the Philippines.">
+<meta property="og:image" content="https://YOURDOMAIN.com/images/logo.png">
+<meta property="og:url" content="https://YOURDOMAIN.com/">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#060B2E">
+<link rel="canonical" href="https://YOURDOMAIN.com/">
+<link rel="icon" href="images/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- tokens: sampled from the logo ---------- */
+:root{
+  --volt-1:#2E1EFC;   /* indigo, left of the wordmark */
+  --volt-2:#0B5CFF;   /* pure blue, middle */
+  --volt-3:#00A6F7;   /* blue-cyan */
+  --volt-4:#00E9FF;   /* cyan, right of the wordmark */
+
+  --deep:#060B2E;     /* dark ground, derived from the indigo */
+  --deep-2:#0C1445;   /* raised panel on dark */
+  --deep-line:#1E2A63;
+
+  --paper:#ffffff;
+  --mist:#eef3fe;     /* cool light fill */
+  --graphite:#4e5b7e; /* secondary text */
+  --hair:#c6d2ec;
+
+  --sweep:linear-gradient(90deg,var(--volt-1) 0%,var(--volt-2) 42%,var(--volt-3) 72%,var(--volt-4) 100%);
+
+  --shell:min(1180px, 100% - 3rem);
+  --step--1:clamp(.8rem, .78rem + .1vw, .875rem);
+  --step-0:clamp(1rem, .96rem + .2vw, 1.075rem);
+  --step-1:clamp(1.2rem, 1.1rem + .5vw, 1.5rem);
+  --step-2:clamp(1.6rem, 1.35rem + 1.2vw, 2.4rem);
+  --step-3:clamp(2.4rem, 1.7rem + 3.4vw, 5rem);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--deep);
+  font-family:'Archivo',system-ui,-apple-system,sans-serif;
+  font-variation-settings:'wdth' 100,'wght' 400;
+  font-size:var(--step-0);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+
+:focus-visible{
+  outline:3px solid var(--volt-4);
+  outline-offset:3px;
+}
+
+.shell{width:var(--shell);margin-inline:auto}
+
+.display{
+  font-variation-settings:'wdth' 118,'wght' 800;
+  line-height:1.02;
+  letter-spacing:-.02em;
+  margin:0;
+  text-wrap:balance;
+}
+
+.lede{
+  font-size:var(--step-1);
+  font-variation-settings:'wdth' 100,'wght' 400;
+  line-height:1.45;
+  max-width:34ch;
+  margin:0;
+}
+
+.prose{max-width:62ch}
+.prose p{margin:0 0 1rem}
+.prose p:last-child{margin-bottom:0}
+
+/* gradient lettering — used only for the wordmark and the step numbers */
+.sweep-text{
+  background:var(--sweep);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* ---------- header ---------- */
+.masthead{
+  position:sticky;top:0;z-index:50;
+  background:var(--deep);
+  color:var(--paper);
+  border-bottom:1px solid var(--deep-line);
+}
+.masthead__inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1.5rem;
+  padding-block:.85rem;
+}
+.wordmark{display:inline-flex;align-items:center;line-height:1}
+.wordmark img{height:30px;width:auto}
+@media (max-width:480px){.wordmark img{height:24px}}
+.nav{display:flex;gap:1.4rem;align-items:center}
+.nav a{
+  text-decoration:none;
+  font-size:var(--step--1);
+  font-variation-settings:'wdth' 100,'wght' 500;
+  color:#b9c4e6;
+  padding-block:.25rem;
+  transition:color .18s ease;
+}
+.nav a:hover{color:var(--paper)}
+.nav__cta{
+  background:var(--sweep);
+  color:#fff;
+  padding:.55rem 1rem;
+  border-radius:4px;
+  font-variation-settings:'wdth' 105,'wght' 700;
+}
+.nav__cta:hover{color:#fff;filter:brightness(1.12)}
+@media (max-width:740px){
+  .nav a:not(.nav__cta){display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  background:var(--deep);
+  color:var(--paper);
+  padding-block:clamp(3.5rem,9vw,7rem) clamp(3rem,7vw,5.5rem);
+  overflow:hidden;
+}
+.hero::after{
+  content:'';
+  position:absolute;left:0;right:0;bottom:0;
+  height:2px;
+  background:var(--sweep);
+}
+.hero__grid{
+  position:relative;
+  display:grid;
+  gap:clamp(2.5rem,5vw,4rem);
+  grid-template-columns:1fr;
+}
+@media (min-width:900px){
+  .hero__grid{grid-template-columns:1.15fr .85fr;align-items:end}
+}
+.hero h1{font-size:var(--step-3)}
+.hero .lede{color:#c3cdeb;margin-top:1.6rem}
+.hero__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.2rem}
+
+.btn{
+  display:inline-block;
+  text-decoration:none;
+  font-variation-settings:'wdth' 105,'wght' 700;
+  font-size:var(--step--1);
+  padding:.85rem 1.5rem;
+  border-radius:4px;
+  border:1.5px solid transparent;
+  transition:filter .18s ease,background .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn--solid{background:var(--sweep);color:#fff}
+.btn--solid:hover{filter:brightness(1.12)}
+.btn--ghost{border-color:#3a4788;color:#dbe3f8}
+.btn--ghost:hover{border-color:var(--volt-4);color:#fff}
+.btn--outline{border-color:var(--hair);color:var(--deep)}
+.btn--outline:hover{border-color:var(--volt-2);color:var(--volt-2)}
+
+/* ---------- charge meter (the signature element) ---------- */
+.meter{
+  border:1.5px solid var(--meter-frame,rgba(255,255,255,.25));
+  border-radius:4px;
+  padding:5px;
+  display:flex;
+  gap:4px;
+  height:var(--meter-h,54px);
+}
+.meter__cell{
+  flex:1;
+  border-radius:2px;
+  background:var(--meter-off,rgba(255,255,255,.10));
+}
+.meter--light{--meter-frame:var(--hair);--meter-off:rgba(6,11,46,.09)}
+
+.hero__meter-caption{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:1rem;
+  margin-top:.85rem;
+  font-size:var(--step--1);
+  color:#8c9ac9;
+}
+.hero__meter-caption strong{
+  color:var(--volt-4);
+  font-variation-settings:'wdth' 112,'wght' 700;
+}
+
+/* one orchestrated load moment: cells charge up in sequence */
+.meter--animated .meter__cell.is-on{
+  opacity:0;
+  animation:cellOn .34s ease forwards;
+}
+@keyframes cellOn{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .meter--animated .meter__cell.is-on{opacity:1;animation:none}
+}
+
+/* ---------- generic section ---------- */
+.band{padding-block:clamp(3.5rem,8vw,6.5rem)}
+.band--mist{background:var(--mist)}
+.band--ink{background:var(--deep);color:var(--paper)}
+
+.band__head{margin-bottom:clamp(2rem,4vw,3rem)}
+.band__head h2{font-size:var(--step-2)}
+.band__head p{
+  margin:1rem 0 0;
+  color:var(--graphite);
+  max-width:56ch;
+}
+.band--ink .band__head p{color:#a8b4dd}
+
+/* ---------- about ---------- */
+.about{
+  display:grid;gap:clamp(2rem,4vw,3.5rem);
+  grid-template-columns:1fr;
+}
+@media (min-width:860px){
+  .about{grid-template-columns:1.3fr .7fr}
+}
+.facts{display:grid;gap:1.4rem;align-content:start}
+.fact{
+  border-top:2px solid transparent;
+  border-image:var(--sweep) 1;
+  padding-top:.9rem;
+}
+.fact dt{
+  font-size:var(--step-2);
+  font-variation-settings:'wdth' 115,'wght' 800;
+  line-height:1;
+  margin:0;
+}
+.fact dd{
+  margin:.5rem 0 0;
+  font-size:var(--step--1);
+  color:var(--graphite);
+  max-width:26ch;
+}
+
+/* ---------- products ---------- */
+.products{display:grid;gap:1.5rem;grid-template-columns:1fr}
+@media (min-width:700px){.products{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1040px){.products{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1300px){.products{grid-template-columns:repeat(4,1fr)}}
+
+.product{
+  background:var(--paper);
+  border:1px solid var(--hair);
+  border-radius:6px;
+  padding:1.5rem;
+  display:flex;flex-direction:column;
+  gap:1.15rem;
+}
+.product__shot{
+  background:var(--mist);
+  border:1px solid var(--hair);
+  border-radius:4px;
+  aspect-ratio:4/3;
+  display:grid;place-items:center;
+  color:var(--graphite);
+  font-size:var(--step--1);
+  overflow:hidden;
+}
+.product__shot img{width:100%;height:100%;object-fit:contain;padding:8%;background:#fff}
+.group{
+  font-size:var(--step-1);
+  font-variation-settings:'wdth' 112,'wght' 700;
+  margin:0 0 1.25rem;
+  padding-bottom:.6rem;
+  border-bottom:1px solid var(--hair);
+}
+.group + .products{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
+.products:last-child{margin-bottom:0}
+
+.product h4{
+  font-size:var(--step-1);
+  font-variation-settings:'wdth' 112,'wght' 700;
+  margin:0;line-height:1.15;
+}
+.product__blurb{margin:0;color:var(--graphite);font-size:var(--step--1)}
+
+.product__meter{--meter-h:20px}
+.product__cap{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:1rem;
+  margin-top:.55rem;
+  font-size:var(--step--1);
+  color:var(--graphite);
+}
+.product__cap strong{
+  color:var(--deep);
+  font-variation-settings:'wdth' 112,'wght' 700;
+}
+
+.specs{
+  list-style:none;margin:0;padding:0;
+  display:grid;gap:.4rem;
+  font-size:var(--step--1);
+}
+.specs li{
+  display:flex;justify-content:space-between;gap:1rem;
+  border-bottom:1px solid var(--hair);
+  padding-bottom:.4rem;
+  color:var(--graphite);
+}
+.specs span:last-child{
+  color:var(--deep);
+  font-variation-settings:'wdth' 105,'wght' 600;
+  text-align:right;
+}
+.product .btn{margin-top:auto;text-align:center}
+
+/* ---------- agents ---------- */
+.agents{display:grid;gap:1.25rem;grid-template-columns:1fr}
+@media (min-width:760px){.agents{grid-template-columns:repeat(2,1fr)}}
+
+.agent{
+  border:1px solid var(--hair);
+  border-left:3px solid var(--volt-2);
+  border-radius:6px;
+  padding:1.4rem 1.5rem;
+  background:var(--paper);
+  display:grid;gap:.7rem;
+}
+.agent:nth-child(2){border-left-color:var(--volt-3)}
+.agent:nth-child(3){border-left-color:var(--volt-4)}
+.agent:nth-child(4){border-left-color:var(--volt-1)}
+.agent__area{font-size:var(--step--1);color:var(--graphite);margin:0}
+.agent h3{
+  margin:0;font-size:var(--step-1);
+  font-variation-settings:'wdth' 112,'wght' 700;
+  line-height:1.15;
+}
+.agent__links{display:flex;flex-wrap:wrap;gap:.5rem .9rem;font-size:var(--step--1)}
+.agent__links a{
+  color:var(--volt-2);
+  font-variation-settings:'wdth' 105,'wght' 600;
+  text-underline-offset:3px;
+}
+
+/* ---------- how to order ---------- */
+.steps{
+  counter-reset:step;
+  list-style:none;margin:0;padding:0;
+  display:grid;gap:1.5rem;grid-template-columns:1fr;
+}
+@media (min-width:760px){.steps{grid-template-columns:repeat(4,1fr)}}
+.steps li{
+  counter-increment:step;
+  border-top:1px solid var(--deep-line);
+  padding-top:1rem;
+}
+.steps li::before{
+  content:counter(step);
+  display:block;
+  font-size:var(--step-2);
+  font-variation-settings:'wdth' 118,'wght' 800;
+  line-height:1;
+  margin-bottom:.6rem;
+  background:var(--sweep);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.steps h3{
+  margin:0 0 .4rem;
+  font-size:var(--step-0);
+  font-variation-settings:'wdth' 108,'wght' 700;
+}
+.steps p{margin:0;color:#a8b4dd;font-size:var(--step--1)}
+
+.buy__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:clamp(2rem,4vw,3rem)}
+
+/* ---------- footer ---------- */
+.footer{
+  background:var(--deep);
+  color:#8c9ac9;
+  border-top:1px solid var(--deep-line);
+  padding-block:2.5rem;
+  font-size:var(--step--1);
+}
+.footer__inner{
+  display:flex;flex-wrap:wrap;gap:1rem 2rem;
+  justify-content:space-between;align-items:center;
+}
+.footer a{color:#c3cdeb;text-underline-offset:3px}
+.footer p{margin:0}
+</style>
 </head>
+
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbxd7Kw8Gn7uI4JHm4GsI2VqlMoaC4OxkXyvkLZGGrrYuDOaiB0ZXKpBA5vvieJ7YIuMDA/exec"></iframe>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <a class="wordmark" href="#top">
+      <img src="images/logo.png" alt="Marstek Energy PH" width="454" height="99">
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#agents">Agents</a>
+      <a class="nav__cta" href="#buy">Buy now</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="shell hero__grid">
+      <div>
+        <h1 class="display">Power that stays on when the grid doesn't.</h1>
+        <p class="lede">Marstek home battery systems, supplied and supported here in the Philippines. Store cheap power, run through brownouts, and stop paying peak rates.</p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="#products">See the products</a>
+          <a class="btn btn--ghost" href="#agents">Talk to an agent</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="meter meter--animated" id="heroMeter" role="img" aria-label="Battery charge indicator, mostly charged"></div>
+        <p class="hero__meter-caption">
+          <span>Stored energy</span>
+          <span><strong>8 hrs</strong> of essentials on one charge</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="band" id="about">
+    <div class="shell">
+      <div class="band__head">
+        <h2 class="display">Who we are</h2>
+      </div>
+
+      <div class="about">
+        <div class="prose">
+          <p><!-- EDIT: your story. Two or three short paragraphs is plenty. -->
+          Marstek Energy PH is the local supplier of Marstek home battery and solar storage systems. We bring in the units, set them up, and stay reachable after the sale — which matters more than the spec sheet when a system is going into your house.</p>
+
+          <p>Brownouts are routine here and Meralco rates are among the highest in the region. A home battery answers both: it carries your household through an outage, and it lets you store power when it's cheap instead of drawing it when it's expensive.</p>
+
+          <p>We work through agents across Luzon, Visayas and Mindanao, so there's someone in your area who can walk you through sizing, delivery and installation in person.</p>
+        </div>
+
+        <dl class="facts">
+          <!-- EDIT: swap these for numbers that are true for you. -->
+          <div class="fact">
+            <dt>2019</dt>
+            <dd>Marstek shipping home storage worldwide</dd>
+          </div>
+          <div class="fact">
+            <dt>3</dt>
+            <dd>Island groups covered by our agent network</dd>
+          </div>
+          <div class="fact">
+            <dt>5 yr</dt>
+            <dd>Manufacturer warranty on battery units</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRODUCTS ========== -->
+  <section class="band band--mist" id="products">
+    <div class="shell">
+      <div class="band__head">
+        <h2 class="display">Our products</h2>
+        <p>Storage systems first, then the components that tie them into your house. The bar under each system shows usable capacity against our largest unit, so you can compare sizes at a glance.</p>
+      </div>
+
+      <h3 class="group">Storage systems</h3>
+
+      <!-- EDIT: copy a whole <article> to add a unit.
+           data-fill = how many of 12 cells light up (this unit's kWh vs. your largest). -->
+      <div class="products">
+
+        <article class="product">
+          <div class="product__shot">
+            <img src="images/venus-e-3.webp" alt="Marstek Venus E 3.0 home battery" loading="lazy" width="900" height="900">
+          </div>
+          <h4>Venus E 3.0</h4>
+          <p class="product__blurb">Plug-and-play home battery. Runs off a normal outlet and works with any existing solar setup — no inverter changes. Stack up to three units.</p>
+
+          <div>
+            <div class="meter meter--light product__meter" data-fill="4" role="img" aria-label="Usable capacity 5.12 kilowatt hours"></div>
+            <p class="product__cap"><span>Usable capacity</span><strong>5.12 kWh</strong></p>
+          </div>
+
+          <ul class="specs">
+            <li><span>Output</span><span>2,500 W</span></li>
+            <li><span>Cells</span><span>LiFePO4, 6,000+ cycles</span></li>
+            <li><span>Expandable to</span><span>15.36 kWh</span></li>
+            <li><span>Rating</span><span>IP65</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+        <article class="product">
+          <div class="product__shot">
+            <img src="images/mars-i-plus.webp" alt="Marstek Mars I Plus full set with three stacked battery modules" loading="lazy" width="600" height="900">
+          </div>
+          <h4>Mars I Plus — full set</h4>
+          <p class="product__blurb">Hybrid inverter and stacked battery modules in one tower. Switches to backup in under 10 ms, so the house barely notices an outage.</p>
+
+          <div>
+            <div class="meter meter--light product__meter" data-fill="12" role="img" aria-label="Usable capacity 15.36 kilowatt hours as pictured"></div>
+            <p class="product__cap"><span>As pictured</span><strong>15.36 kWh</strong></p>
+          </div>
+
+          <ul class="specs">
+            <li><span>Inverter</span><span>Up to 6 kW, single-phase</span></li>
+            <li><span>Solar input</span><span>12 kW, 2 MPPT</span></li>
+            <li><span>Modules</span><span>1&ndash;6 &times; 5.12 kWh</span></li>
+            <li><span>Expandable to</span><span>30.72 kWh</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+        <article class="product">
+          <div class="product__shot">
+            <img src="images/v6000.webp" alt="Marstek V6000 all-in-one solar backup station" loading="lazy" width="600" height="900">
+          </div>
+          <h4>V6000</h4>
+          <p class="product__blurb">Inverter and battery in a single weatherproof cabinet. The 12 kW surge handles aircon and pump start-up, and it runs fanless under 30 dB.</p>
+
+          <div>
+            <div class="meter meter--light product__meter" data-fill="11" role="img" aria-label="Usable capacity 15 kilowatt hours"></div>
+            <p class="product__cap"><span>Usable capacity</span><strong>15 kWh</strong></p>
+          </div>
+
+          <ul class="specs">
+            <li><span>Output</span><span>6 kW, 12 kW peak</span></li>
+            <li><span>Solar input</span><span>9 kW, 2 MPPT</span></li>
+            <li><span>Expandable to</span><span>90 kWh</span></li>
+            <li><span>Rating</span><span>IP65</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+        <article class="product">
+          <div class="product__shot">
+            <img src="images/v500.webp" alt="Marstek V500 portable solar generator" loading="lazy" width="900" height="900">
+          </div>
+          <h4>V500</h4>
+          <p class="product__blurb">Portable station for outages, work sites and trips. Charges from solar, the wall, or both at once.</p>
+
+          <div>
+            <div class="meter meter--light product__meter" data-fill="2" role="img" aria-label="Usable capacity 2 kilowatt hours"></div>
+            <p class="product__cap"><span>Usable capacity</span><strong>2.0 kWh</strong></p>
+          </div>
+
+          <ul class="specs">
+            <li><span>Output</span><span>500 W, 1,000 W peak</span></li>
+            <li><span>Solar charging</span><span>500 W max</span></li>
+            <li><span>Grid charging</span><span>750 W max</span></li>
+            <li><span>Rating</span><span>IP65</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+      </div>
+
+      <h3 class="group">System components</h3>
+
+      <div class="products">
+
+        <article class="product">
+          <div class="product__shot">
+            <img src="images/smart-box.webp" alt="Marstek Smart Box energy distribution unit" loading="lazy" width="900" height="801">
+          </div>
+          <h4>Smart Box</h4>
+          <p class="product__blurb">The switchboard that turns a battery into whole-home backup. Parallels up to three Venus E units and handles the changeover when the grid drops.</p>
+
+          <ul class="specs">
+            <li><span>Combined output</span><span>7,500 W</span></li>
+            <li><span>Combined storage</span><span>15.36 kWh</span></li>
+            <li><span>Modes</span><span>Grid, off-grid, bypass</span></li>
+            <li><span>Install</span><span>Indoor, IP20</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+        <article class="product">
+          <div class="product__shot">
+            <img src="images/ct-meter.webp" alt="Marstek CT smart meter for DIN rail installation" loading="lazy" width="736" height="900">
+          </div>
+          <h4>CT Meter</h4>
+          <p class="product__blurb">Reads what your house is drawing in real time so the battery knows when to charge and when to discharge. Required for the app's automatic modes.</p>
+
+          <ul class="specs">
+            <li><span>Accuracy</span><span>1%</span></li>
+            <li><span>Phases</span><span>Single or three-phase</span></li>
+            <li><span>Connectivity</span><span>Wi-Fi, Bluetooth</span></li>
+            <li><span>Install</span><span>DIN rail, by an electrician</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+        <article class="product">
+          <div class="product__shot">
+            <img src="images/nfinity-panel.webp" alt="NFinity monocrystalline solar panel" loading="lazy" width="900" height="900">
+          </div>
+          <h4>NFinity Solar Panel</h4>
+          <p class="product__blurb">Monocrystalline panel for rooftop and ground-mount arrays, feeding any of the storage systems above.</p>
+
+          <!-- EDIT: fill these in from the panel's datasheet — I don't have verified specs for this one. -->
+          <ul class="specs">
+            <li><span>Rated power</span><span>&mdash;</span></li>
+            <li><span>Cell type</span><span>Monocrystalline</span></li>
+            <li><span>Efficiency</span><span>&mdash;</span></li>
+            <li><span>Warranty</span><span>&mdash;</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== AGENTS ========== -->
+  <section class="band" id="agents">
+    <div class="shell">
+      <div class="band__head">
+        <h2 class="display">Our agents</h2>
+        <p>Message the agent closest to you. They handle sizing, quotes, delivery and installation for their area.</p>
+      </div>
+
+      <!-- EDIT: one .agent block per person.
+           tel: use +63 format. m.me/ is the Messenger link for your Facebook Page. -->
+      <div class="agents">
+
+        <article class="agent">
+          <p class="agent__area">Metro Manila &amp; Cavite</p>
+          <h3>Agent Name</h3>
+          <div class="agent__links">
+            <a href="tel:+639171234567">+63 917 123 4567</a>
+            <a href="https://m.me/yourpage">Messenger</a>
+            <a href="mailto:agent@yourdomain.com">Email</a>
+          </div>
+        </article>
+
+        <article class="agent">
+          <p class="agent__area">Northern &amp; Central Luzon</p>
+          <h3>Agent Name</h3>
+          <div class="agent__links">
+            <a href="tel:+639171234567">+63 917 123 4567</a>
+            <a href="https://m.me/yourpage">Messenger</a>
+            <a href="mailto:agent@yourdomain.com">Email</a>
+          </div>
+        </article>
+
+        <article class="agent">
+          <p class="agent__area">Visayas</p>
+          <h3>Agent Name</h3>
+          <div class="agent__links">
+            <a href="tel:+639171234567">+63 917 123 4567</a>
+            <a href="https://m.me/yourpage">Messenger</a>
+            <a href="mailto:agent@yourdomain.com">Email</a>
+          </div>
+        </article>
+
+        <article class="agent">
+          <p class="agent__area">Mindanao</p>
+          <h3>Agent Name</h3>
+          <div class="agent__links">
+            <a href="tel:+639171234567">+63 917 123 4567</a>
+            <a href="https://m.me/yourpage">Messenger</a>
+            <a href="mailto:agent@yourdomain.com">Email</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BUY NOW ========== -->
+  <section class="band band--ink" id="buy">
+    <div class="shell">
+      <div class="band__head">
+        <h2 class="display">Buy now</h2>
+        <p>No cart, no checkout to fight with. Message us and a real person handles your order start to finish.</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <h3>Message an agent</h3>
+          <p>Tell them your household size and what you want to keep running during an outage.</p>
+        </li>
+        <li>
+          <h3>Get a quote</h3>
+          <p>They confirm the right unit, the total with delivery, and the lead time.</p>
+        </li>
+        <li>
+          <h3>Pay</h3>
+          <p>GCash, bank transfer, or cash on delivery in serviceable areas.</p>
+        </li>
+        <li>
+          <h3>Delivery and setup</h3>
+          <p>We ship nationwide and arrange installation where it's needed.</p>
+        </li>
+      </ol>
+
+      <div class="buy__actions">
+        <!-- EDIT: your main contact points -->
+        <a class="btn btn--solid" href="https://m.me/yourpage">Message us on Messenger</a>
+        <a class="btn btn--ghost" href="tel:+639171234567">Call +63 917 123 4567</a>
+        <a class="btn btn--ghost" href="https://wa.me/639171234567">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="shell footer__inner">
+    <p>Marstek Energy PH — <!-- EDIT: your street address, city --> Bacoor, Cavite</p>
+    <p><a href="https://facebook.com/yourpage">Facebook</a> · <a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></p>
+    <p>&copy; <span id="year">2026</span> Marstek Energy PH</p>
+  </div>
+</footer>
+
+<script>
+// Charge meters. 12 cells; lit cells run indigo to cyan, matching the logo sweep.
+(function(){
+  var TOTAL = 12;
+  var FROM  = [46, 30, 252];   // #2E1EFC
+  var TO    = [0, 233, 255];   // #00E9FF
+
+  function colorAt(i){
+    var t = TOTAL > 1 ? i / (TOTAL - 1) : 0;
+    var c = FROM.map(function(v, k){ return Math.round(v + (TO[k] - v) * t); });
+    return 'rgb(' + c.join(',') + ')';
+  }
+
+  function build(el, filled, stagger){
+    el.innerHTML = '';
+    for(var i = 0; i < TOTAL; i++){
+      var cell = document.createElement('span');
+      cell.className = 'meter__cell';
+      if(i < filled){
+        cell.classList.add('is-on');
+        cell.style.background = colorAt(i);
+        if(stagger) cell.style.animationDelay = (0.25 + i * 0.055) + 's';
+      }
+      el.appendChild(cell);
+    }
+  }
+
+  var hero = document.getElementById('heroMeter');
+  if(hero) build(hero, 10, true);
+
+  document.querySelectorAll('.product__meter').forEach(function(m){
+    build(m, parseInt(m.dataset.fill, 10) || 0, false);
+  });
+
+  var y = document.getElementById('year');
+  if(y) y.textContent = new Date().getFullYear();
+})();
+</script>
+
 </body>
 </html>
