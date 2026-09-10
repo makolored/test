@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-PH">
 <head>
 <meta charset="utf-8">
@@ -15,34 +15,35 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Marstek Energy PH — Home battery storage">
 <meta property="og:description" content="Marstek home battery and solar storage systems, supplied and supported in the Philippines.">
-<meta property="og:image" content="https://YOURDOMAIN.com/images/logo.png">
-<meta property="og:url" content="https://YOURDOMAIN.com/">
+<meta property="og:image" content="https://marstek.philippian.ph/images/logo.png">
+<meta property="og:url" content="https://marstek.philippian.ph/">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#060B2E">
-<link rel="canonical" href="https://YOURDOMAIN.com/">
+<link rel="canonical" href="https://marstek.philippian.ph/">
 <link rel="icon" href="images/logo.png">
+
+<script>
+// Applies the saved theme before first paint so there's no flash. Dark is the default.
+(function(){try{if(localStorage.getItem('theme')==='light'){
+  document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
 
 <style>
-/* ---------- tokens: sampled from the logo ---------- */
+/* ---------- brand palette, sampled from the logo ---------- */
 :root{
   --volt-1:#2E1EFC;   /* indigo, left of the wordmark */
   --volt-2:#0B5CFF;   /* pure blue, middle */
   --volt-3:#00A6F7;   /* blue-cyan */
   --volt-4:#00E9FF;   /* cyan, right of the wordmark */
 
-  --deep:#060B2E;     /* dark ground, derived from the indigo */
-  --deep-2:#0C1445;   /* raised panel on dark */
+  --deep:#060B2E;     /* brand dark ground */
+  --deep-2:#0C1445;
   --deep-line:#1E2A63;
-
-  --paper:#ffffff;
-  --mist:#eef3fe;     /* cool light fill */
-  --graphite:#4e5b7e; /* secondary text */
-  --hair:#c6d2ec;
 
   --sweep:linear-gradient(90deg,var(--volt-1) 0%,var(--volt-2) 42%,var(--volt-3) 72%,var(--volt-4) 100%);
 
@@ -54,6 +55,28 @@
   --step-3:clamp(2.4rem, 1.7rem + 3.4vw, 5rem);
 }
 
+/* ---------- theme: dark is the default ---------- */
+:root{
+  color-scheme:dark;
+  --page:#060B2E;
+  --page-alt:#0A1138;
+  --surface:#0E1746;
+  --text:#ffffff;
+  --text-dim:#a8b4dd;
+  --line:#22306e;
+  --meter-off-c:rgba(255,255,255,.10);
+}
+[data-theme="light"]{
+  color-scheme:light;
+  --page:#ffffff;
+  --page-alt:#eef3fe;
+  --surface:#ffffff;
+  --text:#060B2E;
+  --text-dim:#4e5b7e;
+  --line:#c6d2ec;
+  --meter-off-c:rgba(6,11,46,.09);
+}
+
 *,*::before,*::after{box-sizing:border-box}
 
 html{scroll-behavior:smooth}
@@ -61,359 +84,281 @@ html{scroll-behavior:smooth}
 
 body{
   margin:0;
-  background:var(--paper);
-  color:var(--deep);
+  background:var(--page);
+  color:var(--text);
   font-family:'Archivo',system-ui,-apple-system,sans-serif;
   font-variation-settings:'wdth' 100,'wght' 400;
   font-size:var(--step-0);
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  transition:background-color .25s ease,color .25s ease;
 }
+@media (prefers-reduced-motion:reduce){body{transition:none}}
 
 img{max-width:100%;display:block;height:auto}
 a{color:inherit}
 
-:focus-visible{
-  outline:3px solid var(--volt-4);
-  outline-offset:3px;
-}
+:focus-visible{outline:3px solid var(--volt-4);outline-offset:3px}
 
 .shell{width:var(--shell);margin-inline:auto}
 
 .display{
   font-variation-settings:'wdth' 118,'wght' 800;
-  line-height:1.02;
-  letter-spacing:-.02em;
-  margin:0;
-  text-wrap:balance;
+  line-height:1.02;letter-spacing:-.02em;margin:0;text-wrap:balance;
 }
-
 .lede{
   font-size:var(--step-1);
   font-variation-settings:'wdth' 100,'wght' 400;
-  line-height:1.45;
-  max-width:34ch;
-  margin:0;
+  line-height:1.45;max-width:34ch;margin:0;
 }
-
 .prose{max-width:62ch}
 .prose p{margin:0 0 1rem}
 .prose p:last-child{margin-bottom:0}
 
-/* gradient lettering — used only for the wordmark and the step numbers */
 .sweep-text{
   background:var(--sweep);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 
-/* ---------- header ---------- */
+
+/* ---------- section scroll snapping ---------- */
+html{
+  scroll-snap-type:y proximity;
+  /* keeps section tops clear of the sticky header, for snapping and #anchor links alike */
+  scroll-padding-top:64px;
+}
+.hero,.band,.footer{scroll-snap-align:start}
+/* set by script on any section taller than the viewport, so long sections scroll freely */
+.no-snap{scroll-snap-align:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-snap-type:none}
+}
+
+/* ---------- header (always brand dark) ---------- */
 .masthead{
   position:sticky;top:0;z-index:50;
-  background:var(--deep);
-  color:var(--paper);
+  background:var(--deep);color:#fff;
   border-bottom:1px solid var(--deep-line);
 }
 .masthead__inner{
   display:flex;align-items:center;justify-content:space-between;
-  gap:1.5rem;
-  padding-block:.85rem;
+  gap:1rem;padding-block:.85rem;
 }
-.wordmark{display:inline-flex;align-items:center;line-height:1}
+.wordmark{display:inline-flex;align-items:center;line-height:1;flex-shrink:0}
 .wordmark img{height:30px;width:auto}
 @media (max-width:480px){.wordmark img{height:24px}}
-.nav{display:flex;gap:1.4rem;align-items:center}
+
+.nav{display:flex;gap:1.2rem;align-items:center}
 .nav a{
-  text-decoration:none;
-  font-size:var(--step--1);
+  text-decoration:none;font-size:var(--step--1);
   font-variation-settings:'wdth' 100,'wght' 500;
-  color:#b9c4e6;
-  padding-block:.25rem;
-  transition:color .18s ease;
+  color:#b9c4e6;padding-block:.25rem;transition:color .18s ease;
 }
-.nav a:hover{color:var(--paper)}
+.nav a:hover{color:#fff}
 .nav__cta{
-  background:var(--sweep);
-  color:#fff;
-  padding:.55rem 1rem;
-  border-radius:4px;
+  background:var(--sweep);color:#fff;
+  padding:.55rem 1rem;border-radius:4px;
   font-variation-settings:'wdth' 105,'wght' 700;
 }
 .nav__cta:hover{color:#fff;filter:brightness(1.12)}
-@media (max-width:740px){
-  .nav a:not(.nav__cta){display:none}
-}
+@media (max-width:820px){.nav a:not(.nav__cta){display:none}}
 
-/* ---------- hero ---------- */
+/* theme toggle */
+.themer{
+  display:inline-grid;place-items:center;
+  width:36px;height:36px;flex-shrink:0;
+  background:transparent;color:#b9c4e6;
+  border:1px solid var(--deep-line);border-radius:4px;
+  cursor:pointer;padding:0;
+  transition:color .18s ease,border-color .18s ease;
+}
+.themer:hover{color:#fff;border-color:#3a4788}
+.themer svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.themer .icon-sun{display:none}
+[data-theme="light"] .themer .icon-sun{display:block}
+[data-theme="light"] .themer .icon-moon{display:none}
+
+/* ---------- hero (always brand dark) ---------- */
 .hero{
-  position:relative;
-  background:var(--deep);
-  color:var(--paper);
+  position:relative;background:var(--deep);color:#fff;
   padding-block:clamp(3.5rem,9vw,7rem) clamp(3rem,7vw,5.5rem);
   overflow:hidden;
 }
 .hero::after{
-  content:'';
-  position:absolute;left:0;right:0;bottom:0;
-  height:2px;
-  background:var(--sweep);
+  content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--sweep);
 }
-.hero__grid{
-  position:relative;
-  display:grid;
-  gap:clamp(2.5rem,5vw,4rem);
-  grid-template-columns:1fr;
-}
-@media (min-width:900px){
-  .hero__grid{grid-template-columns:1.15fr .85fr;align-items:end}
-}
+.hero__grid{position:relative;display:grid;gap:clamp(2.5rem,5vw,4rem);grid-template-columns:1fr}
+@media (min-width:900px){.hero__grid{grid-template-columns:1.15fr .85fr;align-items:end}}
 .hero h1{font-size:var(--step-3)}
 .hero .lede{color:#c3cdeb;margin-top:1.6rem}
 .hero__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.2rem}
 
+/* ---------- buttons ---------- */
 .btn{
-  display:inline-block;
-  text-decoration:none;
+  display:inline-block;text-decoration:none;
   font-variation-settings:'wdth' 105,'wght' 700;
-  font-size:var(--step--1);
-  padding:.85rem 1.5rem;
-  border-radius:4px;
-  border:1.5px solid transparent;
+  font-size:var(--step--1);padding:.85rem 1.5rem;
+  border-radius:4px;border:1.5px solid transparent;
   transition:filter .18s ease,background .18s ease,color .18s ease,border-color .18s ease;
 }
 .btn--solid{background:var(--sweep);color:#fff}
 .btn--solid:hover{filter:brightness(1.12)}
 .btn--ghost{border-color:#3a4788;color:#dbe3f8}
 .btn--ghost:hover{border-color:var(--volt-4);color:#fff}
-.btn--outline{border-color:var(--hair);color:var(--deep)}
-.btn--outline:hover{border-color:var(--volt-2);color:var(--volt-2)}
+.btn--outline{border-color:var(--line);color:var(--text)}
+.btn--outline:hover{border-color:var(--volt-3);color:var(--volt-3)}
 
-/* ---------- charge meter (the signature element) ---------- */
+/* ---------- charge meter ---------- */
 .meter{
   border:1.5px solid var(--meter-frame,rgba(255,255,255,.25));
-  border-radius:4px;
-  padding:5px;
-  display:flex;
-  gap:4px;
+  border-radius:4px;padding:5px;display:flex;gap:4px;
   height:var(--meter-h,54px);
 }
-.meter__cell{
-  flex:1;
-  border-radius:2px;
-  background:var(--meter-off,rgba(255,255,255,.10));
-}
-.meter--light{--meter-frame:var(--hair);--meter-off:rgba(6,11,46,.09)}
+.meter__cell{flex:1;border-radius:2px;background:var(--meter-off,rgba(255,255,255,.10))}
+.meter--light{--meter-frame:var(--line);--meter-off:var(--meter-off-c)}
 
 .hero__meter-caption{
-  display:flex;justify-content:space-between;align-items:baseline;
-  gap:1rem;
-  margin-top:.85rem;
-  font-size:var(--step--1);
-  color:#8c9ac9;
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  margin-top:.85rem;font-size:var(--step--1);color:#8c9ac9;
 }
-.hero__meter-caption strong{
-  color:var(--volt-4);
-  font-variation-settings:'wdth' 112,'wght' 700;
-}
+.hero__meter-caption strong{color:var(--volt-4);font-variation-settings:'wdth' 112,'wght' 700}
 
-/* one orchestrated load moment: cells charge up in sequence */
-.meter--animated .meter__cell.is-on{
-  opacity:0;
-  animation:cellOn .34s ease forwards;
-}
+.meter--animated .meter__cell.is-on{opacity:0;animation:cellOn .34s ease forwards}
 @keyframes cellOn{to{opacity:1}}
 @media (prefers-reduced-motion:reduce){
   .meter--animated .meter__cell.is-on{opacity:1;animation:none}
 }
 
-/* ---------- generic section ---------- */
+/* ---------- bands ---------- */
 .band{padding-block:clamp(3.5rem,8vw,6.5rem)}
-.band--mist{background:var(--mist)}
-.band--ink{background:var(--deep);color:var(--paper)}
+.band--mist{background:var(--page-alt)}
+.band--ink{background:var(--deep);color:#fff}
 
 .band__head{margin-bottom:clamp(2rem,4vw,3rem)}
 .band__head h2{font-size:var(--step-2)}
-.band__head p{
-  margin:1rem 0 0;
-  color:var(--graphite);
-  max-width:56ch;
-}
+.band__head p{margin:1rem 0 0;color:var(--text-dim);max-width:56ch}
 .band--ink .band__head p{color:#a8b4dd}
 
 /* ---------- about ---------- */
-.about{
-  display:grid;gap:clamp(2rem,4vw,3.5rem);
-  grid-template-columns:1fr;
-}
-@media (min-width:860px){
-  .about{grid-template-columns:1.3fr .7fr}
-}
+.about{display:grid;gap:clamp(2rem,4vw,3.5rem);grid-template-columns:1fr}
+@media (min-width:860px){.about{grid-template-columns:1.3fr .7fr}}
 .facts{display:grid;gap:1.4rem;align-content:start}
-.fact{
-  border-top:2px solid transparent;
-  border-image:var(--sweep) 1;
-  padding-top:.9rem;
-}
-.fact dt{
-  font-size:var(--step-2);
-  font-variation-settings:'wdth' 115,'wght' 800;
-  line-height:1;
-  margin:0;
-}
-.fact dd{
-  margin:.5rem 0 0;
-  font-size:var(--step--1);
-  color:var(--graphite);
-  max-width:26ch;
-}
+.fact{border-top:2px solid transparent;border-image:var(--sweep) 1;padding-top:.9rem}
+.fact dt{font-size:var(--step-2);font-variation-settings:'wdth' 115,'wght' 800;line-height:1;margin:0}
+.fact dd{margin:.5rem 0 0;font-size:var(--step--1);color:var(--text-dim);max-width:26ch}
 
-/* ---------- products ---------- */
+/* ---------- product groups ---------- */
+.group{
+  font-size:var(--step-1);font-variation-settings:'wdth' 112,'wght' 700;
+  margin:0 0 .75rem;padding-bottom:.6rem;border-bottom:1px solid var(--line);
+}
+.group__intro{margin:0 0 1.5rem;color:var(--text-dim);max-width:60ch;font-size:var(--step--1)}
+.products,.banks{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
+.products:last-child,.banks:last-child{margin-bottom:0}
+
 .products{display:grid;gap:1.5rem;grid-template-columns:1fr}
 @media (min-width:700px){.products{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1040px){.products{grid-template-columns:repeat(3,1fr)}}
-@media (min-width:1300px){.products{grid-template-columns:repeat(4,1fr)}}
 
 .product{
-  background:var(--paper);
-  border:1px solid var(--hair);
-  border-radius:6px;
-  padding:1.5rem;
-  display:flex;flex-direction:column;
-  gap:1.15rem;
+  background:var(--surface);border:1px solid var(--line);border-radius:6px;
+  padding:1.5rem;display:flex;flex-direction:column;gap:1.15rem;
 }
 .product__shot{
-  background:var(--mist);
-  border:1px solid var(--hair);
-  border-radius:4px;
-  aspect-ratio:4/3;
-  display:grid;place-items:center;
-  color:var(--graphite);
-  font-size:var(--step--1);
-  overflow:hidden;
+  background:#fff;border:1px solid var(--line);border-radius:4px;
+  aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;
 }
 .product__shot img{width:100%;height:100%;object-fit:contain;padding:8%;background:#fff}
-.group{
-  font-size:var(--step-1);
-  font-variation-settings:'wdth' 112,'wght' 700;
-  margin:0 0 1.25rem;
-  padding-bottom:.6rem;
-  border-bottom:1px solid var(--hair);
+.product__shot--empty{
+  background:transparent;border-style:dashed;
+  color:var(--text-dim);font-size:var(--step--1);
 }
-.group + .products{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
-.products:last-child{margin-bottom:0}
+.product h4{font-size:var(--step-1);font-variation-settings:'wdth' 112,'wght' 700;margin:0;line-height:1.15}
+.product__tag{margin:-.5rem 0 0;font-size:var(--step--1);color:var(--text-dim);line-height:1.4}
+.product__blurb{margin:0;color:var(--text-dim);font-size:var(--step--1)}
 
-.product h4{
-  font-size:var(--step-1);
+.price-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:.6rem;margin:0}
+.price{
+  background:var(--sweep);color:#fff;
   font-variation-settings:'wdth' 112,'wght' 700;
-  margin:0;line-height:1.15;
+  font-size:var(--step-1);line-height:1;padding:.45rem .8rem;border-radius:4px;
 }
-.product__blurb{margin:0;color:var(--graphite);font-size:var(--step--1)}
+.price--old{font-size:var(--step--1);color:var(--text-dim);text-decoration:line-through}
 
 .product__meter{--meter-h:20px}
 .product__cap{
-  display:flex;justify-content:space-between;align-items:baseline;
-  gap:1rem;
-  margin-top:.55rem;
-  font-size:var(--step--1);
-  color:var(--graphite);
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  margin-top:.55rem;font-size:var(--step--1);color:var(--text-dim);
 }
-.product__cap strong{
-  color:var(--deep);
-  font-variation-settings:'wdth' 112,'wght' 700;
-}
+.product__cap strong{color:var(--text);font-variation-settings:'wdth' 112,'wght' 700}
 
-.specs{
-  list-style:none;margin:0;padding:0;
-  display:grid;gap:.4rem;
-  font-size:var(--step--1);
-}
+.specs{list-style:none;margin:0;padding:0;display:grid;gap:.4rem;font-size:var(--step--1)}
 .specs li{
   display:flex;justify-content:space-between;gap:1rem;
-  border-bottom:1px solid var(--hair);
-  padding-bottom:.4rem;
-  color:var(--graphite);
+  border-bottom:1px solid var(--line);padding-bottom:.4rem;color:var(--text-dim);
 }
-.specs span:last-child{
-  color:var(--deep);
-  font-variation-settings:'wdth' 105,'wght' 600;
-  text-align:right;
-}
+.specs span:last-child{color:var(--text);font-variation-settings:'wdth' 105,'wght' 600;text-align:right}
 .product .btn{margin-top:auto;text-align:center}
+
+/* ---------- power banks ---------- */
+.banks{display:grid;gap:1.25rem;grid-template-columns:1fr}
+@media (min-width:640px){.banks{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1040px){.banks{grid-template-columns:repeat(4,1fr)}}
+.bank{
+  background:var(--surface);border:1px solid var(--line);border-radius:6px;
+  padding:1.4rem;display:grid;gap:.85rem;align-content:start;
+}
+.bank h4{margin:0;font-size:var(--step-1);font-variation-settings:'wdth' 112,'wght' 700;line-height:1.1}
+.bank__tag{margin:-.4rem 0 0;font-size:var(--step--1);color:var(--text-dim)}
+.bank__specs{list-style:none;margin:0;padding:0;display:grid;gap:.35rem;font-size:var(--step--1);color:var(--text-dim)}
+.bank__specs li{padding-left:.9rem;position:relative}
+.bank__specs li::before{
+  content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;
+  border-radius:50%;background:var(--volt-3);
+}
 
 /* ---------- agents ---------- */
 .agents{display:grid;gap:1.25rem;grid-template-columns:1fr}
 @media (min-width:760px){.agents{grid-template-columns:repeat(2,1fr)}}
-
 .agent{
-  border:1px solid var(--hair);
-  border-left:3px solid var(--volt-2);
-  border-radius:6px;
-  padding:1.4rem 1.5rem;
-  background:var(--paper);
+  border:1px solid var(--line);border-left:3px solid var(--volt-2);
+  border-radius:6px;padding:1.4rem 1.5rem;background:var(--surface);
   display:grid;gap:.7rem;
 }
 .agent:nth-child(2){border-left-color:var(--volt-3)}
 .agent:nth-child(3){border-left-color:var(--volt-4)}
 .agent:nth-child(4){border-left-color:var(--volt-1)}
-.agent__area{font-size:var(--step--1);color:var(--graphite);margin:0}
-.agent h3{
-  margin:0;font-size:var(--step-1);
-  font-variation-settings:'wdth' 112,'wght' 700;
-  line-height:1.15;
-}
+.agent__area{font-size:var(--step--1);color:var(--text-dim);margin:0}
+.agent h3{margin:0;font-size:var(--step-1);font-variation-settings:'wdth' 112,'wght' 700;line-height:1.15}
 .agent__links{display:flex;flex-wrap:wrap;gap:.5rem .9rem;font-size:var(--step--1)}
-.agent__links a{
-  color:var(--volt-2);
-  font-variation-settings:'wdth' 105,'wght' 600;
-  text-underline-offset:3px;
-}
+.agent__links a{color:var(--volt-3);font-variation-settings:'wdth' 105,'wght' 600;text-underline-offset:3px}
+[data-theme="light"] .agent__links a{color:var(--volt-2)}
 
 /* ---------- how to order ---------- */
 .steps{
-  counter-reset:step;
-  list-style:none;margin:0;padding:0;
+  counter-reset:step;list-style:none;margin:0;padding:0;
   display:grid;gap:1.5rem;grid-template-columns:1fr;
 }
 @media (min-width:760px){.steps{grid-template-columns:repeat(4,1fr)}}
-.steps li{
-  counter-increment:step;
-  border-top:1px solid var(--deep-line);
-  padding-top:1rem;
-}
+.steps li{counter-increment:step;border-top:1px solid var(--deep-line);padding-top:1rem}
 .steps li::before{
-  content:counter(step);
-  display:block;
-  font-size:var(--step-2);
-  font-variation-settings:'wdth' 118,'wght' 800;
-  line-height:1;
-  margin-bottom:.6rem;
-  background:var(--sweep);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+  content:counter(step);display:block;
+  font-size:var(--step-2);font-variation-settings:'wdth' 118,'wght' 800;
+  line-height:1;margin-bottom:.6rem;
+  background:var(--sweep);-webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.steps h3{
-  margin:0 0 .4rem;
-  font-size:var(--step-0);
-  font-variation-settings:'wdth' 108,'wght' 700;
-}
+.steps h3{margin:0 0 .4rem;font-size:var(--step-0);font-variation-settings:'wdth' 108,'wght' 700}
 .steps p{margin:0;color:#a8b4dd;font-size:var(--step--1)}
-
 .buy__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:clamp(2rem,4vw,3rem)}
 
 /* ---------- footer ---------- */
 .footer{
-  background:var(--deep);
-  color:#8c9ac9;
-  border-top:1px solid var(--deep-line);
-  padding-block:2.5rem;
-  font-size:var(--step--1);
+  background:var(--deep);color:#8c9ac9;
+  border-top:1px solid var(--deep-line);padding-block:2.5rem;font-size:var(--step--1);
 }
-.footer__inner{
-  display:flex;flex-wrap:wrap;gap:1rem 2rem;
-  justify-content:space-between;align-items:center;
-}
+.footer__inner{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center}
 .footer a{color:#c3cdeb;text-underline-offset:3px}
 .footer p{margin:0}
 </style>
@@ -431,6 +376,10 @@ a{color:inherit}
       <a href="#products">Products</a>
       <a href="#agents">Agents</a>
       <a class="nav__cta" href="#buy">Buy now</a>
+      <button class="themer" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></svg>
+      </button>
     </nav>
   </div>
 </header>
@@ -442,7 +391,7 @@ a{color:inherit}
     <div class="shell hero__grid">
       <div>
         <h1 class="display">Power that stays on when the grid doesn't.</h1>
-        <p class="lede">Marstek home battery systems, supplied and supported here in the Philippines. Store cheap power, run through brownouts, and stop paying peak rates.</p>
+        <p class="lede">Smart energy solutions for Filipino homes and businesses. Store power when it is cheap, run right through a brownout, and stop paying peak rates.</p>
         <div class="hero__actions">
           <a class="btn btn--solid" href="#products">See the products</a>
           <a class="btn btn--ghost" href="#agents">Talk to an agent</a>
@@ -500,32 +449,39 @@ a{color:inherit}
     <div class="shell">
       <div class="band__head">
         <h2 class="display">Our products</h2>
-        <p>Storage systems first, then the components that tie them into your house. The bar under each system shows usable capacity against our largest unit, so you can compare sizes at a glance.</p>
+        <p>Prices shown are current promotional pricing and include the unit only. Delivery and installation are quoted separately by your agent.</p>
       </div>
 
-      <h3 class="group">Storage systems</h3>
+      <h3 class="group">Home energy storage</h3>
+      <p class="group__intro">Permanent systems wired into the house. The bar under each shows usable capacity against the largest unit in this group.</p>
 
-      <!-- EDIT: copy a whole <article> to add a unit.
-           data-fill = how many of 12 cells light up (this unit's kWh vs. your largest). -->
       <div class="products">
 
         <article class="product">
           <div class="product__shot">
-            <img src="images/venus-e-3.webp" alt="Marstek Venus E 3.0 home battery" loading="lazy" width="900" height="900">
+            <img src="images/venus-e-3.webp" alt="Marstek Venus E 3.0" loading="lazy">
           </div>
           <h4>Venus E 3.0</h4>
-          <p class="product__blurb">Plug-and-play home battery. Runs off a normal outlet and works with any existing solar setup — no inverter changes. Stack up to three units.</p>
+          <p class="product__tag">5.12 kWh plug-and-play AC-coupled home battery</p>
+          <p class="price-row">
+            <span class="price">₱120,000</span>
+            <span class="price--old">₱179,000</span>
+          </p>
+          <p class="product__blurb">Plugs into a dedicated outlet and works alongside any existing solar setup — no inverter swap, no rewiring. Cuts over to battery within 20 ms when the grid drops, so the fridge and router never notice.</p>
 
           <div>
-            <div class="meter meter--light product__meter" data-fill="4" role="img" aria-label="Usable capacity 5.12 kilowatt hours"></div>
+            <div class="meter meter--light product__meter" data-fill="4" role="img" aria-label="Capacity 5.12 kWh"></div>
             <p class="product__cap"><span>Usable capacity</span><strong>5.12 kWh</strong></p>
           </div>
 
           <ul class="specs">
-            <li><span>Output</span><span>2,500 W</span></li>
-            <li><span>Cells</span><span>LiFePO4, 6,000+ cycles</span></li>
-            <li><span>Expandable to</span><span>15.36 kWh</span></li>
-            <li><span>Rating</span><span>IP65</span></li>
+            <li><span>Output</span><span>2,500 W in and out</span></li>
+            <li><span>Battery</span><span>5.12 kWh LiFePO4</span></li>
+            <li><span>Backup switchover</span><span>20 ms</span></li>
+            <li><span>Noise</span><span>Under 30 dB</span></li>
+            <li><span>Rating</span><span>IP65, indoor or outdoor</span></li>
+            <li><span>Size</span><span>48 × 15 × 62 cm</span></li>
+            <li><span>Warranty</span><span>10 years, 6,000 cycles</span></li>
           </ul>
 
           <a class="btn btn--outline" href="#agents">Ask about this unit</a>
@@ -533,21 +489,29 @@ a{color:inherit}
 
         <article class="product">
           <div class="product__shot">
-            <img src="images/mars-i-plus.webp" alt="Marstek Mars I Plus full set with three stacked battery modules" loading="lazy" width="600" height="900">
+            <img src="images/mars-i-plus.webp" alt="Marstek Mars I Plus" loading="lazy">
           </div>
-          <h4>Mars I Plus — full set</h4>
-          <p class="product__blurb">Hybrid inverter and stacked battery modules in one tower. Switches to backup in under 10 ms, so the house barely notices an outage.</p>
+          <h4>Mars I Plus</h4>
+          <p class="product__tag">6 kW hybrid inverter + 15.36 kWh all-in-one residential ESS</p>
+          <p class="price-row">
+            <span class="price">₱390,000</span>
+            <span class="price--old">₱445,000</span>
+          </p>
+          <p class="product__blurb">Inverter and stacked battery modules in one tower, meant for a new solar installation rather than an add-on. Recommended set is one inverter with three battery modules.</p>
 
           <div>
-            <div class="meter meter--light product__meter" data-fill="12" role="img" aria-label="Usable capacity 15.36 kilowatt hours as pictured"></div>
-            <p class="product__cap"><span>As pictured</span><strong>15.36 kWh</strong></p>
+            <div class="meter meter--light product__meter" data-fill="12" role="img" aria-label="Capacity 15.36 kWh"></div>
+            <p class="product__cap"><span>Usable capacity</span><strong>15.36 kWh</strong></p>
           </div>
 
           <ul class="specs">
-            <li><span>Inverter</span><span>Up to 6 kW, single-phase</span></li>
-            <li><span>Solar input</span><span>12 kW, 2 MPPT</span></li>
-            <li><span>Modules</span><span>1&ndash;6 &times; 5.12 kWh</span></li>
-            <li><span>Expandable to</span><span>30.72 kWh</span></li>
+            <li><span>Inverter</span><span>6 kW hybrid, single-phase</span></li>
+            <li><span>Solar input</span><span>Up to 12 kW</span></li>
+            <li><span>Battery</span><span>5.12–30.72 kWh, up to 6 modules</span></li>
+            <li><span>Backup switchover</span><span>Under 10 ms</span></li>
+            <li><span>Display</span><span>10.1" HD touchscreen</span></li>
+            <li><span>Size</span><span>19.5 × 62.8 × 135 cm</span></li>
+            <li><span>Warranty</span><span>10 years, 6,000 cycles</span></li>
           </ul>
 
           <a class="btn btn--outline" href="#agents">Ask about this unit</a>
@@ -555,43 +519,29 @@ a{color:inherit}
 
         <article class="product">
           <div class="product__shot">
-            <img src="images/v6000.webp" alt="Marstek V6000 all-in-one solar backup station" loading="lazy" width="600" height="900">
+            <img src="images/v6000.webp" alt="Marstek V6000" loading="lazy">
           </div>
           <h4>V6000</h4>
-          <p class="product__blurb">Inverter and battery in a single weatherproof cabinet. The 12 kW surge handles aircon and pump start-up, and it runs fanless under 30 dB.</p>
+          <p class="product__tag">6 kW inverter + 15 kWh on/off-grid solar backup station</p>
+          <p class="price-row">
+            <span class="price">₱225,000</span>
+            <span class="price--old">₱250,000</span>
+          </p>
+          <p class="product__blurb">Built for remote sites and unreliable supply. Charges from solar, grid, generator or a solar-grid hybrid, and parallels up to six units for larger loads.</p>
 
           <div>
-            <div class="meter meter--light product__meter" data-fill="11" role="img" aria-label="Usable capacity 15 kilowatt hours"></div>
+            <div class="meter meter--light product__meter" data-fill="12" role="img" aria-label="Capacity 15 kWh"></div>
             <p class="product__cap"><span>Usable capacity</span><strong>15 kWh</strong></p>
           </div>
 
           <ul class="specs">
-            <li><span>Output</span><span>6 kW, 12 kW peak</span></li>
-            <li><span>Solar input</span><span>9 kW, 2 MPPT</span></li>
-            <li><span>Expandable to</span><span>90 kWh</span></li>
-            <li><span>Rating</span><span>IP65</span></li>
-          </ul>
-
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
-        </article>
-
-        <article class="product">
-          <div class="product__shot">
-            <img src="images/v500.webp" alt="Marstek V500 portable solar generator" loading="lazy" width="900" height="900">
-          </div>
-          <h4>V500</h4>
-          <p class="product__blurb">Portable station for outages, work sites and trips. Charges from solar, the wall, or both at once.</p>
-
-          <div>
-            <div class="meter meter--light product__meter" data-fill="2" role="img" aria-label="Usable capacity 2 kilowatt hours"></div>
-            <p class="product__cap"><span>Usable capacity</span><strong>2.0 kWh</strong></p>
-          </div>
-
-          <ul class="specs">
-            <li><span>Output</span><span>500 W, 1,000 W peak</span></li>
-            <li><span>Solar charging</span><span>500 W max</span></li>
-            <li><span>Grid charging</span><span>750 W max</span></li>
-            <li><span>Rating</span><span>IP65</span></li>
+            <li><span>Output</span><span>6 kW pure sine, 12 kW peak</span></li>
+            <li><span>Battery</span><span>15 kWh, expands to 90 kWh</span></li>
+            <li><span>Solar input</span><span>Up to 9 kW, dual MPPT</span></li>
+            <li><span>Charging</span><span>Solar, grid, generator, hybrid</span></li>
+            <li><span>Rating</span><span>IP65, outdoor ready</span></li>
+            <li><span>Size</span><span>61 × 25.2 × 77 cm</span></li>
+            <li><span>Warranty</span><span>5 years, 10,000 cycles</span></li>
           </ul>
 
           <a class="btn btn--outline" href="#agents">Ask about this unit</a>
@@ -599,22 +549,132 @@ a{color:inherit}
 
       </div>
 
-      <h3 class="group">System components</h3>
+      <h3 class="group">Portable power</h3>
+      <p class="group__intro">Units you can move. The bar compares them against the largest portable, not against the home systems above.</p>
+
+      <div class="products">
+
+        <article class="product">
+          <div class="product__shot product__shot--empty">
+            <!-- EDIT: add images/m2200.webp and swap this block for an <img> -->
+            <span>Photo to follow</span>
+          </div>
+          <h4>M2200</h4>
+          <p class="product__tag">2,400 W output, 2,240 Wh portable power station</p>
+          <p class="price-row">
+            <span class="price">₱75,000</span>
+            <span class="price--old">₱85,000</span>
+          </p>
+          <p class="product__blurb">The largest portable in the range. Recharges from empty in roughly 70 minutes on mains, and stacks with expansion packs to 6,720 Wh.</p>
+
+          <div>
+            <div class="meter meter--light product__meter" data-fill="12" role="img" aria-label="Capacity 2,240 Wh"></div>
+            <p class="product__cap"><span>Battery capacity</span><strong>2,240 Wh</strong></p>
+          </div>
+
+          <ul class="specs">
+            <li><span>Output</span><span>2,400 W rated, 4,800 W surge</span></li>
+            <li><span>Battery</span><span>2,240 Wh, to 6,720 Wh</span></li>
+            <li><span>AC charging</span><span>2,000 W, full in ~70 min</span></li>
+            <li><span>Solar input</span><span>Up to 1,200 W MPPT</span></li>
+            <li><span>DC ports</span><span>USB-C 100 W PD + 45 W, USB-A, car</span></li>
+            <li><span>UPS</span><span>Switches under 20 ms</span></li>
+            <li><span>Size</span><span>49.6 × 37.6 × 31.1 cm</span></li>
+            <li><span>Warranty</span><span>5 years</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+        <article class="product">
+          <div class="product__shot">
+            <img src="images/v500.webp" alt="Marstek V500" loading="lazy">
+          </div>
+          <h4>V500</h4>
+          <p class="product__tag">Waterproof 500 W / 2 kWh solar generator</p>
+          <p class="price-row">
+            <span class="price">₱45,000</span>
+            <span class="price--old">₱50,000</span>
+          </p>
+          <p class="product__blurb">The weatherproof one. Sealed to IP65 and fanless, so it can sit outside or on a work site, and it keeps powering the load while charging.</p>
+
+          <div>
+            <div class="meter meter--light product__meter" data-fill="11" role="img" aria-label="Capacity 2,000 Wh"></div>
+            <p class="product__cap"><span>Battery capacity</span><strong>2,000 Wh</strong></p>
+          </div>
+
+          <ul class="specs">
+            <li><span>Output</span><span>500 W pure sine, 1,000 W peak</span></li>
+            <li><span>Battery</span><span>2 kWh LFP</span></li>
+            <li><span>Charging</span><span>500 W solar or 500 W grid</span></li>
+            <li><span>Input range</span><span>184–276 V</span></li>
+            <li><span>Rating</span><span>IP65, silent fanless</span></li>
+            <li><span>Size</span><span>20.55 × 22.03 × 29.5 cm</span></li>
+            <li><span>Warranty</span><span>5 years</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+        <article class="product">
+          <div class="product__shot product__shot--empty">
+            <!-- EDIT: add images/m1200.webp and swap this block for an <img> -->
+            <span>Photo to follow</span>
+          </div>
+          <h4>M1200</h4>
+          <p class="product__tag">1,800 W output, 1,030 Wh portable power station</p>
+          <p class="price-row">
+            <span class="price">₱60,000</span>
+            <span class="price--old">₱68,000</span>
+          </p>
+          <p class="product__blurb">Around 13 kg and genuinely carryable. Runs microwaves and power tools, and refills from flat in about an hour.</p>
+
+          <div>
+            <div class="meter meter--light product__meter" data-fill="6" role="img" aria-label="Capacity 1,030 Wh"></div>
+            <p class="product__cap"><span>Battery capacity</span><strong>1,030 Wh</strong></p>
+          </div>
+
+          <ul class="specs">
+            <li><span>Output</span><span>1,800 W pure sine, 3,600 W surge</span></li>
+            <li><span>Battery</span><span>1,030 Wh, to 2,060 Wh</span></li>
+            <li><span>AC charging</span><span>1,200 W, full in ~60 min</span></li>
+            <li><span>Solar input</span><span>Up to 800 W MPPT</span></li>
+            <li><span>DC ports</span><span>USB-C 100 W + 45 W, 2× USB-A, car</span></li>
+            <li><span>UPS</span><span>Switches under 20 ms</span></li>
+            <li><span>Weight</span><span>About 13 kg</span></li>
+            <li><span>Warranty</span><span>5 years, 6,000 cycles</span></li>
+          </ul>
+
+          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+        </article>
+
+      </div>
+
+      <h3 class="group">Solar and system components</h3>
+      <p class="group__intro">The parts that tie a system together — panels, whole-home backup switching, and the meter the batteries read.</p>
 
       <div class="products">
 
         <article class="product">
           <div class="product__shot">
-            <img src="images/smart-box.webp" alt="Marstek Smart Box energy distribution unit" loading="lazy" width="900" height="801">
+            <img src="images/nfinity-panel.webp" alt="Marstek Infinity Solar Panel" loading="lazy">
           </div>
-          <h4>Smart Box</h4>
-          <p class="product__blurb">The switchboard that turns a battery into whole-home backup. Parallels up to three Venus E units and handles the changeover when the grid drops.</p>
+          <h4>Infinity Solar Panel</h4>
+          <p class="product__tag">N-type bifacial double-glass module, 695–720 W</p>
+          <p class="price-row">
+            <span class="price">₱12,000</span>
+            <span class="price--old">₱15,000</span>
+          </p>
+          <p class="product__blurb">Bifacial, so it also harvests light reflected off the roof surface — up to 936 W in the right mounting. Double-glass construction rather than backsheet.</p>
 
           <ul class="specs">
-            <li><span>Combined output</span><span>7,500 W</span></li>
-            <li><span>Combined storage</span><span>15.36 kWh</span></li>
-            <li><span>Modes</span><span>Grid, off-grid, bypass</span></li>
-            <li><span>Install</span><span>Indoor, IP20</span></li>
+            <li><span>Output</span><span>695–720 W, up to 936 W bifacial</span></li>
+            <li><span>Efficiency</span><span>Up to 23.2%</span></li>
+            <li><span>Cells</span><span>N-type mono, 132 half-cells</span></li>
+            <li><span>Glass</span><span>2 mm + 2 mm tempered, both sides</span></li>
+            <li><span>Load rating</span><span>5,400 Pa snow, 2,400 Pa wind</span></li>
+            <li><span>Size</span><span>238.4 × 130.3 × 3.3 cm, 37.7 kg</span></li>
+            <li><span>Warranty</span><span>30-year linear power, 15-year product</span></li>
           </ul>
 
           <a class="btn btn--outline" href="#agents">Ask about this unit</a>
@@ -622,16 +682,25 @@ a{color:inherit}
 
         <article class="product">
           <div class="product__shot">
-            <img src="images/ct-meter.webp" alt="Marstek CT smart meter for DIN rail installation" loading="lazy" width="736" height="900">
+            <img src="images/smart-box.webp" alt="Marstek Single-Phase SmartBox" loading="lazy">
           </div>
-          <h4>CT Meter</h4>
-          <p class="product__blurb">Reads what your house is drawing in real time so the battery knows when to charge and when to discharge. Required for the app's automatic modes.</p>
+          <h4>Single-Phase SmartBox</h4>
+          <p class="product__tag">Whole-home backup switchboard for the Venus series</p>
+          <p class="price-row">
+            <span class="price">₱25,000</span>
+            <span class="price--old">₱30,000</span>
+          </p>
+          <p class="product__blurb">Turns a Venus battery into whole-home backup instead of just a few circuits. Runs 220/230 V at either 50 or 60 Hz, so it suits Philippine supply.</p>
 
           <ul class="specs">
-            <li><span>Accuracy</span><span>1%</span></li>
-            <li><span>Phases</span><span>Single or three-phase</span></li>
-            <li><span>Connectivity</span><span>Wi-Fi, Bluetooth</span></li>
-            <li><span>Install</span><span>DIN rail, by an electrician</span></li>
+            <li><span>Capacity</span><span>Up to 2 Venus units</span></li>
+            <li><span>Supply</span><span>220/230 V, 50/60 Hz</span></li>
+            <li><span>Passthrough</span><span>40 A max</span></li>
+            <li><span>Backup output</span><span>40 A max</span></li>
+            <li><span>Switchover</span><span>1 second</span></li>
+            <li><span>Breakers</span><span>Grid, backup, bypass, Venus</span></li>
+            <li><span>Size</span><span>48 × 36 × 11.8 cm, 11 kg</span></li>
+            <li><span>Warranty</span><span>5 years</span></li>
           </ul>
 
           <a class="btn btn--outline" href="#agents">Ask about this unit</a>
@@ -639,23 +708,99 @@ a{color:inherit}
 
         <article class="product">
           <div class="product__shot">
-            <img src="images/nfinity-panel.webp" alt="NFinity monocrystalline solar panel" loading="lazy" width="900" height="900">
+            <img src="images/ct-meter.webp" alt="Marstek CT002 Smart Meter" loading="lazy">
           </div>
-          <h4>NFinity Solar Panel</h4>
-          <p class="product__blurb">Monocrystalline panel for rooftop and ground-mount arrays, feeding any of the storage systems above.</p>
+          <h4>CT002 Smart Meter</h4>
+          <p class="product__tag">Three-phase smart energy meter, up to 100 A per phase</p>
+          <p class="price-row">
+            <span class="price">₱4,500</span>
+            <span class="price--old">₱5,000</span>
+          </p>
+          <p class="product__blurb">Reads what the house is drawing in real time so the battery knows when to charge and when to discharge. Required for anti-feed-in and the app's automatic modes.</p>
 
-          <!-- EDIT: fill these in from the panel's datasheet — I don't have verified specs for this one. -->
           <ul class="specs">
-            <li><span>Rated power</span><span>&mdash;</span></li>
-            <li><span>Cell type</span><span>Monocrystalline</span></li>
-            <li><span>Efficiency</span><span>&mdash;</span></li>
-            <li><span>Warranty</span><span>&mdash;</span></li>
+            <li><span>Accuracy</span><span>±1%</span></li>
+            <li><span>Capacity</span><span>Up to 100 A per phase</span></li>
+            <li><span>Phases</span><span>Three-phase, or 3-point single-phase</span></li>
+            <li><span>Range</span><span>100–260 V AC</span></li>
+            <li><span>Connectivity</span><span>Wi-Fi and Bluetooth</span></li>
+            <li><span>Mounting</span><span>DIN rail</span></li>
+            <li><span>Size</span><span>6.5 × 8.3 × 2.6 cm</span></li>
+            <li><span>Warranty</span><span>10 years</span></li>
           </ul>
 
           <a class="btn btn--outline" href="#agents">Ask about this unit</a>
         </article>
 
       </div>
+
+      <h3 class="group">Power banks</h3>
+      <p class="group__intro">Pocket-sized, for phones and laptops rather than the house.</p>
+
+      <div class="banks">
+
+        <article class="bank">
+          <h4>P327D</h4>
+          <p class="bank__tag">20,000 mAh · 65 W</p>
+          <p class="price-row">
+            <span class="price">₱3,999</span>
+            <span class="price--old">₱4,500</span>
+          </p>
+          <ul class="bank__specs">
+            <li>65 W output, charges a laptop</li>
+            <li>IPX7 waterproof</li>
+            <li>Airline carry-on safe</li>
+            <li>4.7 × 4.7 × 9.6 cm</li>
+          </ul>
+        </article>
+
+        <article class="bank">
+          <h4>P326D</h4>
+          <p class="bank__tag">10,000 mAh · 45 W</p>
+          <p class="price-row">
+            <span class="price">₱2,999</span>
+            <span class="price--old">₱3,500</span>
+          </p>
+          <ul class="bank__specs">
+            <li>45 W high-speed output</li>
+            <li>IPX7 waterproof, TFT display</li>
+            <li>Airline carry-on safe</li>
+            <li>2.7 × 4.8 × 9.6 cm</li>
+          </ul>
+        </article>
+
+        <article class="bank">
+          <h4>P269D</h4>
+          <p class="bank__tag">10,000 mAh · magnetic</p>
+          <p class="price-row">
+            <span class="price">₱1,999</span>
+            <span class="price--old">₱2,500</span>
+          </p>
+          <ul class="bank__specs">
+            <li>Charges a phone 2–3 times</li>
+            <li>MagSafe alignment, iPhone 12–16</li>
+            <li>Bi-directional USB-C</li>
+            <li>13.8 × 6.7 × 1.45 cm</li>
+          </ul>
+        </article>
+
+        <article class="bank">
+          <h4>P268D</h4>
+          <p class="bank__tag">5,000 mAh · magnetic</p>
+          <p class="price-row">
+            <span class="price">₱1,499</span>
+            <span class="price--old">₱2,000</span>
+          </p>
+          <ul class="bank__specs">
+            <li>Single-device top-up</li>
+            <li>Half the thickness</li>
+            <li>MagSafe alignment</li>
+            <li>9.2 × 6.6 × 1.4 cm</li>
+          </ul>
+        </article>
+
+      </div>
+
     </div>
   </section>
 
@@ -675,9 +820,9 @@ a{color:inherit}
           <p class="agent__area">Metro Manila &amp; Cavite</p>
           <h3>Agent Name</h3>
           <div class="agent__links">
-            <a href="tel:+639171234567">+63 917 123 4567</a>
-            <a href="https://m.me/yourpage">Messenger</a>
-            <a href="mailto:agent@yourdomain.com">Email</a>
+            <a href="tel:+639778178787">0977 817 8787</a>
+            <a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a>
+            <a href="https://www.instagram.com/marstekenergyph/">Instagram</a>
           </div>
         </article>
 
@@ -685,9 +830,9 @@ a{color:inherit}
           <p class="agent__area">Northern &amp; Central Luzon</p>
           <h3>Agent Name</h3>
           <div class="agent__links">
-            <a href="tel:+639171234567">+63 917 123 4567</a>
-            <a href="https://m.me/yourpage">Messenger</a>
-            <a href="mailto:agent@yourdomain.com">Email</a>
+            <a href="tel:+639778178787">0977 817 8787</a>
+            <a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a>
+            <a href="https://www.instagram.com/marstekenergyph/">Instagram</a>
           </div>
         </article>
 
@@ -695,9 +840,9 @@ a{color:inherit}
           <p class="agent__area">Visayas</p>
           <h3>Agent Name</h3>
           <div class="agent__links">
-            <a href="tel:+639171234567">+63 917 123 4567</a>
-            <a href="https://m.me/yourpage">Messenger</a>
-            <a href="mailto:agent@yourdomain.com">Email</a>
+            <a href="tel:+639778178787">0977 817 8787</a>
+            <a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a>
+            <a href="https://www.instagram.com/marstekenergyph/">Instagram</a>
           </div>
         </article>
 
@@ -705,9 +850,9 @@ a{color:inherit}
           <p class="agent__area">Mindanao</p>
           <h3>Agent Name</h3>
           <div class="agent__links">
-            <a href="tel:+639171234567">+63 917 123 4567</a>
-            <a href="https://m.me/yourpage">Messenger</a>
-            <a href="mailto:agent@yourdomain.com">Email</a>
+            <a href="tel:+639778178787">0977 817 8787</a>
+            <a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a>
+            <a href="https://www.instagram.com/marstekenergyph/">Instagram</a>
           </div>
         </article>
 
@@ -744,9 +889,9 @@ a{color:inherit}
 
       <div class="buy__actions">
         <!-- EDIT: your main contact points -->
-        <a class="btn btn--solid" href="https://m.me/yourpage">Message us on Messenger</a>
-        <a class="btn btn--ghost" href="tel:+639171234567">Call +63 917 123 4567</a>
-        <a class="btn btn--ghost" href="https://wa.me/639171234567">WhatsApp</a>
+        <a class="btn btn--solid" href="https://www.facebook.com/MarstekEnergyPH">Message us on Facebook</a>
+        <a class="btn btn--ghost" href="tel:+639778178787">Call 0977 817 8787</a>
+        <a class="btn btn--ghost" href="tel:+639995217997">Call 0999 521 7997</a>
       </div>
     </div>
   </section>
@@ -756,7 +901,7 @@ a{color:inherit}
 <footer class="footer">
   <div class="shell footer__inner">
     <p>Marstek Energy PH — <!-- EDIT: your street address, city --> Bacoor, Cavite</p>
-    <p><a href="https://facebook.com/yourpage">Facebook</a> · <a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></p>
+    <p><a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a> · <a href="https://www.instagram.com/marstekenergyph/">Instagram</a></p>
     <p>&copy; <span id="year">2026</span> Marstek Energy PH</p>
   </div>
 </footer>
@@ -794,6 +939,35 @@ a{color:inherit}
   document.querySelectorAll('.product__meter').forEach(function(m){
     build(m, parseInt(m.dataset.fill, 10) || 0, false);
   });
+
+  // Sections taller than the viewport opt out of snapping, so long lists scroll normally.
+  var snapTargets = document.querySelectorAll('.hero, .band, .footer');
+  function tuneSnap(){
+    var limit = window.innerHeight * 1.15;
+    snapTargets.forEach(function(el){
+      el.classList.toggle('no-snap', el.offsetHeight > limit);
+    });
+  }
+  tuneSnap();
+  window.addEventListener('resize', tuneSnap);
+  window.addEventListener('load', tuneSnap);
+
+  // Theme toggle. Dark is the default; the choice is remembered where storage allows.
+  var root = document.documentElement, btn = document.getElementById('themeToggle');
+  function paint(){
+    var light = root.getAttribute('data-theme') === 'light';
+    btn.setAttribute('aria-pressed', light ? 'true' : 'false');
+    btn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+  }
+  if(btn){
+    paint();
+    btn.addEventListener('click', function(){
+      var light = root.getAttribute('data-theme') === 'light';
+      if(light){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme','light'); }
+      try{ localStorage.setItem('theme', light ? 'dark' : 'light'); }catch(e){}
+      paint();
+    });
+  }
 
   var y = document.getElementById('year');
   if(y) y.textContent = new Date().getFullYear();
