@@ -347,24 +347,6 @@ html{
   border-radius:50%;background:var(--volt-3);
 }
 
-/* ---------- agents ---------- */
-.agents{display:grid;gap:1.25rem;grid-template-columns:1fr}
-@media (min-width:760px){.agents{grid-template-columns:repeat(2,1fr)}}
-.agent{
-  box-shadow:var(--card-lift);
-  border:1px solid var(--line);border-left:3px solid var(--volt-3);
-  border-radius:6px;padding:1.4rem 1.5rem;background:var(--surface);
-  display:grid;gap:.7rem;
-}
-.agent:nth-child(2){border-left-color:var(--volt-3)}
-.agent:nth-child(3){border-left-color:var(--volt-4)}
-.agent:nth-child(4){border-left-color:var(--volt-1)}
-.agent__area{font-size:var(--step--1);color:var(--text-dim);margin:0}
-.agent h3{margin:0;font-size:var(--step-1);font-variation-settings:'wdth' 112,'wght' 700;line-height:1.15}
-.agent__links{display:flex;flex-wrap:wrap;gap:.5rem .9rem;font-size:var(--step--1)}
-.agent__links a{color:var(--volt-2);font-variation-settings:'wdth' 105,'wght' 600;text-underline-offset:3px}
-[data-theme="dark"] .agent__links a{color:var(--volt-3)}
-
 /* ---------- how to order ---------- */
 .steps{
   counter-reset:step;list-style:none;margin:0;padding:0;
@@ -492,7 +474,6 @@ html{
     <nav class="nav" aria-label="Main">
       <a href="#about">About</a>
       <a href="#products">Products</a>
-      <a href="#agents">Agents</a>
       <a class="nav__cta" href="#buy">Buy now</a>
       <button class="themer" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
         <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
@@ -512,7 +493,7 @@ html{
         <p class="lede">Smart energy solutions for Filipino homes and businesses. Store power when it is cheap, run right through a brownout, and stop paying peak rates.</p>
         <div class="hero__actions">
           <a class="btn btn--solid" href="#products">See the products</a>
-          <a class="btn btn--ghost" href="#agents">Talk to an agent</a>
+          <a class="btn btn--ghost" href="#buy">Request a quote</a>
         </div>
       </div>
 
@@ -540,7 +521,7 @@ html{
 
           <p>Brownouts are routine here and Meralco rates are among the highest in the region. A home battery answers both: it carries your household through an outage, and it lets you store power when it's cheap instead of drawing it when it's expensive.</p>
 
-          <p>We work through agents across Luzon, Visayas and Mindanao, so there's someone in your area who can walk you through sizing, delivery and installation in person.</p>
+          <p>We ship nationwide and arrange installation where it's needed. Send your details through the form and one of our team will call you the same day to talk through sizing and give you a full quote.</p>
         </div>
 
         <dl class="facts">
@@ -551,7 +532,7 @@ html{
           </div>
           <div class="fact">
             <dt>3</dt>
-            <dd>Island groups covered by our agent network</dd>
+            <dd>Island groups we deliver to</dd>
           </div>
           <div class="fact">
             <dt>5 yr</dt>
@@ -567,7 +548,7 @@ html{
     <div class="shell">
       <div class="band__head">
         <h2 class="display">Our products</h2>
-        <p>Prices shown are current promotional pricing and include the unit only. Delivery and installation are quoted separately by your agent.</p>
+        <p>Prices shown are current promotional pricing and include the unit only. Delivery and installation are quoted separately.</p>
       </div>
 
       <h3 class="group">Home energy storage</h3>
@@ -602,7 +583,7 @@ html{
             <li><span>Warranty</span><span>10 years, 6,000 cycles</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
         <article class="product">
@@ -632,7 +613,7 @@ html{
             <li><span>Warranty</span><span>10 years, 6,000 cycles</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
         <article class="product">
@@ -662,7 +643,7 @@ html{
             <li><span>Warranty</span><span>5 years, 10,000 cycles</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
       </div>
@@ -701,7 +682,7 @@ html{
             <li><span>Warranty</span><span>5 years</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
         <article class="product">
@@ -731,7 +712,7 @@ html{
             <li><span>Warranty</span><span>5 years</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
         <article class="product">
@@ -763,7 +744,7 @@ html{
             <li><span>Warranty</span><span>5 years, 6,000 cycles</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
       </div>
@@ -795,7 +776,7 @@ html{
             <li><span>Warranty</span><span>30-year linear power, 15-year product</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
         <article class="product">
@@ -821,7 +802,7 @@ html{
             <li><span>Warranty</span><span>5 years</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
         <article class="product">
@@ -847,7 +828,7 @@ html{
             <li><span>Warranty</span><span>10 years</span></li>
           </ul>
 
-          <a class="btn btn--outline" href="#agents">Ask about this unit</a>
+          <a class="btn btn--outline" href="#buy">Ask about this unit</a>
         </article>
 
       </div>
@@ -922,68 +903,12 @@ html{
     </div>
   </section>
 
-  <!-- ========== AGENTS ========== -->
-  <section class="band" id="agents">
-    <div class="shell">
-      <div class="band__head">
-        <h2 class="display">Our agents</h2>
-        <p>Message the agent closest to you. They handle sizing, quotes, delivery and installation for their area.</p>
-      </div>
-
-      <!-- EDIT: one .agent block per person.
-           tel: use +63 format. m.me/ is the Messenger link for your Facebook Page. -->
-      <div class="agents">
-
-        <article class="agent">
-          <p class="agent__area">Metro Manila &amp; Cavite</p>
-          <h3>Agent Name</h3>
-          <div class="agent__links">
-            <a href="tel:+639778178787">0977 817 8787</a>
-            <a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a>
-            <a href="https://www.instagram.com/marstekenergyph/">Instagram</a>
-          </div>
-        </article>
-
-        <article class="agent">
-          <p class="agent__area">Northern &amp; Central Luzon</p>
-          <h3>Agent Name</h3>
-          <div class="agent__links">
-            <a href="tel:+639778178787">0977 817 8787</a>
-            <a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a>
-            <a href="https://www.instagram.com/marstekenergyph/">Instagram</a>
-          </div>
-        </article>
-
-        <article class="agent">
-          <p class="agent__area">Visayas</p>
-          <h3>Agent Name</h3>
-          <div class="agent__links">
-            <a href="tel:+639778178787">0977 817 8787</a>
-            <a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a>
-            <a href="https://www.instagram.com/marstekenergyph/">Instagram</a>
-          </div>
-        </article>
-
-        <article class="agent">
-          <p class="agent__area">Mindanao</p>
-          <h3>Agent Name</h3>
-          <div class="agent__links">
-            <a href="tel:+639778178787">0977 817 8787</a>
-            <a href="https://www.facebook.com/MarstekEnergyPH">Facebook</a>
-            <a href="https://www.instagram.com/marstekenergyph/">Instagram</a>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
   <!-- ========== ENQUIRY / CHECKOUT ========== -->
   <section class="band band--ink" id="buy">
     <div class="shell">
       <div class="band__head">
         <h2 class="display">Request a quote</h2>
-        <p>Send your details and what you're interested in. An agent replies with a full quote including delivery to your area.</p>
+        <p>Fill this in and someone from our team will call you the same day with a full quote, including delivery to your area. No cold calls — we only ring the people who ask us to.</p>
       </div>
 
       <ol class="steps">
@@ -992,8 +917,8 @@ html{
           <p>Tell us what you're looking at and where you are. Takes a minute.</p>
         </li>
         <li>
-          <h3>We quote you</h3>
-          <p>An agent confirms the right unit, the total with delivery, and the lead time.</p>
+          <h3>We call you back</h3>
+          <p>We confirm the right unit, the total with delivery, and the lead time.</p>
         </li>
         <li>
           <h3>Pay</h3>
@@ -1179,7 +1104,7 @@ html{
 
   // "Ask about this unit" ticks that product in the form before jumping to it.
   document.querySelectorAll('.product').forEach(function(card){
-    var link = card.querySelector('a[href="#agents"], a[href="#buy"]');
+    var link = card.querySelector('a[href="#buy"], a[href="#buy"]');
     var title = card.querySelector('h4');
     if(!link || !title) return;
     link.setAttribute('href','#buy');
@@ -1226,7 +1151,7 @@ html{
   // google-apps-script.gs). Until it is set, the form tells the
   // visitor to call instead of failing silently.
   // ---------------------------------------------------------------
-  var QUOTE_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwv2PUZUVcf9qC9uSLVZQ4DVkOb-Vas-Y4a66cwmi0oYZJgNdFT0amWDM5Uu_MoCs68zA/exec';
+  var QUOTE_ENDPOINT = '';
 
   var form = document.getElementById('quoteForm');
   if(form){
@@ -1306,7 +1231,7 @@ html{
         .then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); })
         .then(function(){
           form.classList.add('quote--sent');
-          say('Thanks — we have your request. An agent will contact you shortly.', 'ok');
+          say('Thanks — we have your request. Someone will call you today.', 'ok');
         })
         .catch(function(){
           submitEl.disabled = false;
