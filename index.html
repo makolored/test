@@ -382,6 +382,95 @@ html{
 .steps p{margin:0;color:#a8b4dd;font-size:var(--step--1)}
 .buy__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:clamp(2rem,4vw,3rem)}
 
+
+/* ---------- quote request form ---------- */
+.quote{margin-top:clamp(2.5rem,5vw,3.5rem)}
+.quote__grid{
+  display:grid;gap:1.1rem;grid-template-columns:1fr;
+}
+@media (min-width:680px){.quote__grid{grid-template-columns:repeat(2,1fr)}}
+.field{display:grid;gap:.4rem;margin:0}
+.field--wide{grid-column:1/-1}
+.quote label,.quote legend{
+  font-size:var(--step--1);
+  font-variation-settings:'wdth' 105,'wght' 600;
+  color:#dbe3f8;
+}
+.hint{
+  display:block;margin-top:.15rem;
+  font-variation-settings:'wdth' 100,'wght' 400;
+  color:#8c9ac9;
+}
+.quote input[type=text],
+.quote input[type=tel],
+.quote input[type=email],
+.quote textarea{
+  width:100%;font:inherit;font-size:var(--step-0);
+  color:#fff;background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(255,255,255,.18);border-radius:4px;
+  padding:.7rem .85rem;
+  transition:border-color .18s ease,background .18s ease;
+}
+.quote textarea{resize:vertical;min-height:5.5em}
+.quote input::placeholder,.quote textarea::placeholder{color:#7e8cbd}
+.quote input:focus,.quote textarea:focus{
+  outline:none;border-color:var(--volt-4);background:rgba(255,255,255,.10);
+}
+.quote [aria-invalid="true"]{border-color:#ff8a8a}
+.field__error{
+  margin:.25rem 0 0;font-size:var(--step--1);color:#ff9d9d;
+  font-variation-settings:'wdth' 100,'wght' 500;
+}
+
+.fieldset{
+  border:1px solid rgba(255,255,255,.14);border-radius:6px;
+  padding:1.1rem 1.2rem 1.2rem;margin:1.6rem 0 0;
+}
+.fieldset legend{padding:0 .45rem}
+
+.checks{display:grid;gap:1.25rem;grid-template-columns:1fr}
+@media (min-width:640px){.checks{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.checks{grid-template-columns:repeat(4,1fr)}}
+.check-group__title{
+  margin:0 0 .5rem;font-size:var(--step--1);
+  font-variation-settings:'wdth' 108,'wght' 700;color:#fff;
+}
+.radios{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem}
+
+.check{
+  display:flex;align-items:flex-start;gap:.5rem;
+  font-size:var(--step--1);color:#c3cdeb;cursor:pointer;
+  padding:.2rem 0;
+  font-variation-settings:'wdth' 100,'wght' 400;
+}
+.check input{
+  flex-shrink:0;margin:.15rem 0 0;width:1rem;height:1rem;
+  accent-color:var(--volt-2);cursor:pointer;
+}
+.check span{line-height:1.35}
+.check em{font-style:normal;color:#8c9ac9;white-space:nowrap}
+.check:hover span{color:#fff}
+
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.quote__foot{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.9rem 1.4rem;
+  margin-top:1.8rem;
+}
+.quote__foot .btn{border:none;cursor:pointer;font-family:inherit}
+.quote__foot .btn[disabled]{opacity:.55;cursor:progress}
+.quote__alt{font-size:var(--step--1);color:#8c9ac9}
+.quote__alt a{color:#c3cdeb;text-underline-offset:3px}
+
+.quote__status{margin:1.1rem 0 0;font-size:var(--step-0);min-height:1.5em}
+.quote__status.is-error{color:#ff9d9d}
+.quote__status.is-ok{color:var(--volt-4);font-variation-settings:'wdth' 108,'wght' 700}
+
+.quote--sent .quote__grid,
+.quote--sent .fieldset,
+.quote--sent .field,
+.quote--sent .quote__foot{display:none}
+
 /* ---------- footer ---------- */
 .footer{
   background:var(--brand-band);color:#a5b3dd;
@@ -889,22 +978,22 @@ html{
     </div>
   </section>
 
-  <!-- ========== BUY NOW ========== -->
+  <!-- ========== ENQUIRY / CHECKOUT ========== -->
   <section class="band band--ink" id="buy">
     <div class="shell">
       <div class="band__head">
-        <h2 class="display">Buy now</h2>
-        <p>No cart, no checkout to fight with. Message us and a real person handles your order start to finish.</p>
+        <h2 class="display">Request a quote</h2>
+        <p>Send your details and what you're interested in. An agent replies with a full quote including delivery to your area.</p>
       </div>
 
       <ol class="steps">
         <li>
-          <h3>Message an agent</h3>
-          <p>Tell them your household size and what you want to keep running during an outage.</p>
+          <h3>Send your details</h3>
+          <p>Tell us what you're looking at and where you are. Takes a minute.</p>
         </li>
         <li>
-          <h3>Get a quote</h3>
-          <p>They confirm the right unit, the total with delivery, and the lead time.</p>
+          <h3>We quote you</h3>
+          <p>An agent confirms the right unit, the total with delivery, and the lead time.</p>
         </li>
         <li>
           <h3>Pay</h3>
@@ -916,12 +1005,131 @@ html{
         </li>
       </ol>
 
-      <div class="buy__actions">
-        <!-- EDIT: your main contact points -->
-        <a class="btn btn--solid" href="https://www.facebook.com/MarstekEnergyPH">Message us on Facebook</a>
-        <a class="btn btn--ghost" href="tel:+639778178787">Call 0977 817 8787</a>
-        <a class="btn btn--ghost" href="tel:+639995217997">Call 0999 521 7997</a>
-      </div>
+      <form class="quote" id="quoteForm" novalidate>
+        <div class="quote__grid">
+          <p class="field">
+            <label for="f-name">Full name <span aria-hidden="true">*</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </p>
+          <p class="field">
+            <label for="f-phone">Contact number <span aria-hidden="true">*</span></label>
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+                   placeholder="09XX XXX XXXX" required>
+          </p>
+          <p class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email">
+          </p>
+          <p class="field">
+            <label for="f-city">City or municipality <span aria-hidden="true">*</span></label>
+            <input id="f-city" name="city" type="text" autocomplete="address-level2" required>
+          </p>
+          <p class="field field--wide">
+            <label for="f-address">Delivery address</label>
+            <input id="f-address" name="address" type="text" autocomplete="street-address"
+                   placeholder="House number, street, barangay">
+          </p>
+        </div>
+
+        <fieldset class="fieldset">
+          <legend>Products you're interested in <span aria-hidden="true">*</span></legend>
+          <div class="checks">
+            <div class="check-group">
+              <p class="check-group__title">Home energy storage</p>
+              <label class="check">
+                <input type="checkbox" name="products" value="Venus E 3.0">
+                <span>Venus E 3.0 <em>₱120,000</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="Mars I Plus">
+                <span>Mars I Plus <em>₱390,000</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="V6000">
+                <span>V6000 <em>₱225,000</em></span>
+              </label>
+            </div>
+            <div class="check-group">
+              <p class="check-group__title">Portable power</p>
+              <label class="check">
+                <input type="checkbox" name="products" value="M2200">
+                <span>M2200 <em>₱75,000</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="V500">
+                <span>V500 <em>₱45,000</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="M1200">
+                <span>M1200 <em>₱60,000</em></span>
+              </label>
+            </div>
+            <div class="check-group">
+              <p class="check-group__title">Solar and components</p>
+              <label class="check">
+                <input type="checkbox" name="products" value="Infinity Solar Panel">
+                <span>Infinity Solar Panel <em>₱12,000</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="Single-Phase SmartBox">
+                <span>Single-Phase SmartBox <em>₱25,000</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="CT002 Smart Meter">
+                <span>CT002 Smart Meter <em>₱4,500</em></span>
+              </label>
+            </div>
+            <div class="check-group">
+              <p class="check-group__title">Power banks</p>
+              <label class="check">
+                <input type="checkbox" name="products" value="P327D">
+                <span>P327D <em>₱3,999</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="P326D">
+                <span>P326D <em>₱2,999</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="P269D">
+                <span>P269D <em>₱1,999</em></span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="products" value="P268D">
+                <span>P268D <em>₱1,499</em></span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Your current solar setup</legend>
+          <div class="radios">
+            <label class="check"><input type="radio" name="solar" value="None" checked><span>No solar yet</span></label>
+            <label class="check"><input type="radio" name="solar" value="Panels, no battery"><span>Panels, no battery</span></label>
+            <label class="check"><input type="radio" name="solar" value="Panels and inverter"><span>Panels and inverter</span></label>
+            <label class="check"><input type="radio" name="solar" value="Existing battery system"><span>Existing battery system</span></label>
+            <label class="check"><input type="radio" name="solar" value="Not sure"><span>Not sure</span></label>
+          </div>
+        </fieldset>
+
+        <p class="field">
+          <label for="f-notes">Anything else? <span class="hint">Monthly bill, what you want to keep running during an outage, roof space.</span></label>
+          <textarea id="f-notes" name="notes" rows="3"></textarea>
+        </p>
+
+        <!-- spam trap: real people never see or fill this -->
+        <p class="hp" aria-hidden="true">
+          <label for="f-website">Leave this empty</label>
+          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </p>
+
+        <div class="quote__foot">
+          <button class="btn btn--solid" type="submit" id="quoteSubmit">Send my request</button>
+          <span class="quote__alt">or call <a href="tel:+639778178787">0977 817 8787</a> &middot; <a href="tel:+639995217997">0999 521 7997</a></span>
+        </div>
+
+        <p class="quote__status" id="quoteStatus" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
@@ -969,6 +1177,19 @@ html{
     build(m, parseInt(m.dataset.fill, 10) || 0, false);
   });
 
+  // "Ask about this unit" ticks that product in the form before jumping to it.
+  document.querySelectorAll('.product').forEach(function(card){
+    var link = card.querySelector('a[href="#agents"], a[href="#buy"]');
+    var title = card.querySelector('h4');
+    if(!link || !title) return;
+    link.setAttribute('href','#buy');
+    link.addEventListener('click', function(){
+      var want = title.textContent.trim();
+      var box = document.querySelector('input[name="products"][value="' + want + '"]');
+      if(box) box.checked = true;
+    });
+  });
+
   // Sections taller than the viewport opt out of snapping, so long lists scroll normally.
   var snapTargets = document.querySelectorAll('.hero, .band, .footer');
   function tuneSnap(){
@@ -995,6 +1216,102 @@ html{
       if(dark){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme','dark'); }
       try{ localStorage.setItem('theme', dark ? 'light' : 'dark'); }catch(e){}
       paint();
+    });
+  }
+
+
+  // ---------------------------------------------------------------
+  // Quote request form.
+  // Set QUOTE_ENDPOINT to your Apps Script web-app URL (see
+  // google-apps-script.gs). Until it is set, the form tells the
+  // visitor to call instead of failing silently.
+  // ---------------------------------------------------------------
+  var QUOTE_ENDPOINT = '';
+
+  var form = document.getElementById('quoteForm');
+  if(form){
+    var statusEl = document.getElementById('quoteStatus');
+    var submitEl = document.getElementById('quoteSubmit');
+
+    function clearErrors(){
+      form.querySelectorAll('.field__error').forEach(function(n){ n.remove(); });
+      form.querySelectorAll('[aria-invalid]').forEach(function(n){ n.removeAttribute('aria-invalid'); });
+    }
+    function fail(el, msg){
+      el.setAttribute('aria-invalid','true');
+      var p = document.createElement('p');
+      p.className = 'field__error';
+      p.textContent = msg;
+      (el.closest('.field') || el.closest('.fieldset') || el.parentNode).appendChild(p);
+      return el;
+    }
+    function say(msg, kind){
+      statusEl.textContent = msg;
+      statusEl.className = 'quote__status' + (kind ? ' is-' + kind : '');
+    }
+
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      clearErrors();
+      say('');
+
+      var first = null;
+      ['name','phone','city'].forEach(function(n){
+        var el = form.elements[n];
+        if(!el.value.trim()) first = fail(el, 'Please fill this in.') && (first || el);
+      });
+
+      var email = form.elements['email'];
+      if(email.value.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim())){
+        first = fail(email, 'That email address does not look right.') && (first || email);
+      }
+
+      var picked = form.querySelectorAll('input[name="products"]:checked');
+      if(!picked.length){
+        var box = form.querySelector('.checks');
+        first = first || box;
+        fail(box, 'Pick at least one product.');
+      }
+
+      if(first){
+        say('Please check the highlighted fields.', 'error');
+        (first.focus ? first : first.querySelector('input')).focus();
+        return;
+      }
+
+      // honeypot: silently pretend success for bots
+      if(form.elements['website'].value){ say('Thanks — we will be in touch.', 'ok'); return; }
+
+      var data = new URLSearchParams();
+      data.append('name',    form.elements['name'].value.trim());
+      data.append('phone',   form.elements['phone'].value.trim());
+      data.append('email',   form.elements['email'].value.trim());
+      data.append('city',    form.elements['city'].value.trim());
+      data.append('address', form.elements['address'].value.trim());
+      data.append('solar',   (form.querySelector('input[name="solar"]:checked')||{}).value || '');
+      data.append('notes',   form.elements['notes'].value.trim());
+      data.append('products', Array.prototype.map.call(picked, function(c){ return c.value; }).join(', '));
+      data.append('page', location.href);
+
+      if(!QUOTE_ENDPOINT){
+        say('The form is not connected yet. Please call 0977 817 8787 and we will take your details.', 'error');
+        return;
+      }
+
+      submitEl.disabled = true;
+      say('Sending…');
+
+      // urlencoded keeps this a simple request, so no CORS preflight
+      fetch(QUOTE_ENDPOINT, { method:'POST', body:data })
+        .then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); })
+        .then(function(){
+          form.classList.add('quote--sent');
+          say('Thanks — we have your request. An agent will contact you shortly.', 'ok');
+        })
+        .catch(function(){
+          submitEl.disabled = false;
+          say('Sorry, that did not go through. Please call 0977 817 8787 or try again.', 'error');
+        });
     });
   }
 
