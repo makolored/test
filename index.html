@@ -66,6 +66,7 @@
   --line-strong:#c2d0ec;
   --meter-off-c:rgba(8,15,51,.09);
   --plate:#f6f9ff;
+  --shot-bg:transparent;
   --card-lift:0 1px 2px rgba(10,18,64,.05), 0 10px 30px rgba(10,18,64,.06);
   --glow:.3;
 }
@@ -81,6 +82,7 @@
   --line-strong:rgba(255,255,255,.24);
   --meter-off-c:rgba(255,255,255,.10);
   --plate:linear-gradient(180deg,#f4f7fd,#dfe7f6);
+  --shot-bg:radial-gradient(60% 55% at 50% 52%, rgba(190,210,255,.17) 0%, transparent 72%);
   --card-lift:0 1px 0 rgba(255,255,255,.06) inset, 0 10px 28px rgba(0,0,0,.34);
   --glow:.5;
 }
@@ -205,7 +207,7 @@ a{color:inherit}
 }
 .mega__item:hover{background:var(--page-alt)}
 .mega__thumb{
-  background:var(--plate);border:1px solid var(--line);border-radius:var(--r-sm);
+  background:var(--shot-bg);border-radius:var(--r-sm);
   aspect-ratio:1;display:grid;place-items:center;overflow:hidden;
 }
 .mega__thumb img{width:100%;height:100%;object-fit:contain;padding:12%}
@@ -317,7 +319,7 @@ body.nav-open .burger .icon-bars{display:none}
 }
 .slide__figure{
   position:relative;border-radius:var(--r);overflow:hidden;
-  background:var(--plate);border:1px solid var(--line);
+  background:var(--shot-bg);
   aspect-ratio:4/3;display:grid;place-items:center;
 }
 .slide__figure img{width:100%;height:100%;object-fit:contain;padding:5%}
@@ -331,7 +333,7 @@ body.nav-open .burger .icon-bars{display:none}
 
 /* controls */
 .slides__controls{
-  display:flex;align-items:center;gap:1rem;
+  display:flex;align-items:center;gap:1rem;justify-content:center;
   margin-top:clamp(1.8rem,3vw,2.5rem);
 }
 .dots{display:flex;gap:.5rem;list-style:none;margin:0;padding:0}
@@ -341,17 +343,6 @@ body.nav-open .burger .icon-bars{display:none}
 }
 .dot[aria-current="true"]{background:var(--volt-2)}
 .dot:hover{background:var(--volt-3)}
-.arrows{display:flex;gap:.4rem;margin-left:auto}
-.arrow{
-  width:38px;height:38px;display:grid;place-items:center;
-  border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);
-  color:var(--text);cursor:pointer;padding:0;
-  transition:border-color .16s ease,color .16s ease;
-}
-.arrow:hover{border-color:var(--volt-2);color:var(--volt-2)}
-.arrow svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;
-  stroke-linecap:round;stroke-linejoin:round}
-
 /* ===========================================================
    FEATURE STRIP
    =========================================================== */
@@ -401,8 +392,7 @@ body.nav-open .burger .icon-bars{display:none}
   background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
   overflow:hidden;box-shadow:var(--card-lift);
 }
-.how__shot{background:var(--plate);aspect-ratio:16/11;display:grid;place-items:center;
-  border-bottom:1px solid var(--line)}
+.how__shot{background:var(--shot-bg);aspect-ratio:16/11;display:grid;place-items:center}
 .how__shot img{width:100%;height:100%;object-fit:contain;padding:8%}
 .how__body{padding:1.3rem 1.4rem 1.5rem;text-align:center}
 .how__body h3{
@@ -455,7 +445,7 @@ body.nav-open .burger .icon-bars{display:none}
   display:flex;flex-direction:column;gap:1.05rem;
 }
 .product__shot{
-  background:var(--plate);border:1px solid var(--line);border-radius:var(--r-sm);
+  background:var(--shot-bg);border-radius:var(--r-sm);
   aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;
 }
 .product__shot img{width:100%;height:100%;object-fit:contain;padding:8%}
@@ -605,6 +595,18 @@ body.nav-open .burger .icon-bars{display:none}
   font-size:var(--step--1);color:var(--text-dim);text-align:center;
 }
 
+/* ---------- package card ---------- */
+.product--package{
+  border-color:var(--volt-2);
+  box-shadow:0 0 0 1px var(--volt-2), var(--card-lift);
+}
+.product--package .product__tag{color:var(--text)}
+.pkg-note{
+  margin:0;font-size:var(--step--1);color:var(--text-dim);
+  padding:.7rem .85rem;border-radius:var(--r-sm);
+  background:var(--page-alt);border:1px solid var(--line);
+}
+
 </style>
 </head>
 <body>
@@ -626,11 +628,19 @@ body.nav-open .burger .icon-bars{display:none}
         </button>
         <div class="mega" id="productMega">
           <div class="mega__tabs" role="tablist" aria-label="Product categories">
-            <button class="mega__tab" role="tab" aria-selected="true" aria-controls="panel-home" id="tab-home" type="button">Home energy storage</button><button class="mega__tab" role="tab" aria-selected="false" aria-controls="panel-portable" id="tab-portable" type="button">Portable power</button><button class="mega__tab" role="tab" aria-selected="false" aria-controls="panel-components" id="tab-components" type="button">Solar and components</button><button class="mega__tab" role="tab" aria-selected="false" aria-controls="panel-banks" id="tab-banks" type="button">Power banks</button>
+            <button class="mega__tab" role="tab" aria-selected="true" aria-controls="panel-packages" id="tab-packages" type="button">Packages</button><button class="mega__tab" role="tab" aria-selected="false" aria-controls="panel-home" id="tab-home" type="button">Home energy storage</button><button class="mega__tab" role="tab" aria-selected="false" aria-controls="panel-portable" id="tab-portable" type="button">Portable power</button><button class="mega__tab" role="tab" aria-selected="false" aria-controls="panel-components" id="tab-components" type="button">Solar and components</button><button class="mega__tab" role="tab" aria-selected="false" aria-controls="panel-banks" id="tab-banks" type="button">Power banks</button>
           </div>
           <div class="mega__panels">
+            <div class="mega__panel" role="tabpanel" id="panel-packages"
+                 aria-labelledby="tab-packages" data-active="true">
+              <a class="mega__item" href="#products">
+                <span class="mega__thumb"><img src="images/mars-i-plus.webp" alt="" loading="lazy"></span>
+                <span class="mega__name">Full Solar Set Up</span>
+                <span class="mega__price">₱750,000</span>
+              </a>
+            </div>
             <div class="mega__panel" role="tabpanel" id="panel-home"
-                 aria-labelledby="tab-home" data-active="true">
+                 aria-labelledby="tab-home" data-active="false">
               <a class="mega__item" href="#products">
                 <span class="mega__thumb"><img src="images/venus-e-3.webp" alt="" loading="lazy"></span>
                 <span class="mega__name">Venus E 3.0</span>
@@ -727,6 +737,27 @@ body.nav-open .burger .icon-bars{display:none}
     <div class="slides" id="slides" aria-roledescription="carousel" aria-label="Featured products">
       <article class="slide is-active" data-slide="0" aria-hidden="false">
         <div>
+          <p class="eyebrow">Complete package</p>
+          <h1 class="display slide__name">Full Solar Set Up</h1>
+          <p class="slide__rule">Panels, inverter, batteries. Installed.</p>
+          <p class="slide__copy">A full solar and storage system in one price — ten Infinity panels, a 6 kW Mars inverter and 15 kWh of battery, with labour and installation included.</p>
+          <div class="slide__actions">
+            <a class="btn btn--solid" href="#buy" data-product="Full Solar Set Up">Get yours for ₱750,000 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn--outline" href="#products">See all products</a>
+          </div>
+          <ul class="slide__pillars">
+          <li>7.2 kW of solar</li>
+          <li>6 kW inverter</li>
+          <li>15 kWh storage</li>
+          </ul>
+        </div>
+        <div class="slide__figure">
+          <span class="slide__badge">Best value</span>
+          <img src="images/mars-i-plus.webp" alt="Marstek Full Solar Set Up" fetchpriority="high">
+        </div>
+      </article>
+      <article class="slide" data-slide="1" aria-hidden="true">
+        <div>
           <p class="eyebrow">Plug-in home battery</p>
           <h1 class="display slide__name">Venus E 3.0</h1>
           <p class="slide__rule">Just plug. Expand. Power.</p>
@@ -743,10 +774,10 @@ body.nav-open .burger .icon-bars{display:none}
         </div>
         <div class="slide__figure">
           <span class="slide__badge">Most popular</span>
-          <img src="images/venus-e-3.webp" alt="Marstek Venus E 3.0" fetchpriority="high">
+          <img src="images/venus-e-3.webp" alt="Marstek Venus E 3.0" loading="lazy">
         </div>
       </article>
-      <article class="slide" data-slide="1" aria-hidden="true">
+      <article class="slide" data-slide="2" aria-hidden="true">
         <div>
           <p class="eyebrow">All-in-one residential ESS</p>
           <h1 class="display slide__name">Mars I Plus</h1>
@@ -767,7 +798,7 @@ body.nav-open .burger .icon-bars{display:none}
           <img src="images/mars-i-plus.webp" alt="Marstek Mars I Plus" loading="lazy">
         </div>
       </article>
-      <article class="slide" data-slide="2" aria-hidden="true">
+      <article class="slide" data-slide="3" aria-hidden="true">
         <div>
           <p class="eyebrow">On and off-grid backup</p>
           <h1 class="display slide__name">V6000</h1>
@@ -788,7 +819,7 @@ body.nav-open .burger .icon-bars{display:none}
           <img src="images/v6000.webp" alt="Marstek V6000" loading="lazy">
         </div>
       </article>
-      <article class="slide" data-slide="3" aria-hidden="true">
+      <article class="slide" data-slide="4" aria-hidden="true">
         <div>
           <p class="eyebrow">Portable power station</p>
           <h1 class="display slide__name">V500</h1>
@@ -809,7 +840,7 @@ body.nav-open .burger .icon-bars{display:none}
           <img src="images/v500.webp" alt="Marstek V500" loading="lazy">
         </div>
       </article>
-      <article class="slide" data-slide="4" aria-hidden="true">
+      <article class="slide" data-slide="5" aria-hidden="true">
         <div>
           <p class="eyebrow">Bifacial solar module</p>
           <h1 class="display slide__name">Infinity Solar Panel</h1>
@@ -834,20 +865,13 @@ body.nav-open .burger .icon-bars{display:none}
 
     <div class="slides__controls">
       <ul class="dots" id="dots">
-      <li><button class="dot" type="button" data-goto="0" aria-current="true"><span class="visually-hidden">Venus E 3.0</span></button></li>
-      <li><button class="dot" type="button" data-goto="1" aria-current="false"><span class="visually-hidden">Mars I Plus</span></button></li>
-      <li><button class="dot" type="button" data-goto="2" aria-current="false"><span class="visually-hidden">V6000</span></button></li>
-      <li><button class="dot" type="button" data-goto="3" aria-current="false"><span class="visually-hidden">V500</span></button></li>
-      <li><button class="dot" type="button" data-goto="4" aria-current="false"><span class="visually-hidden">Infinity Solar Panel</span></button></li>
+      <li><button class="dot" type="button" data-goto="0" aria-current="true"><span class="visually-hidden">Full Solar Set Up</span></button></li>
+      <li><button class="dot" type="button" data-goto="1" aria-current="false"><span class="visually-hidden">Venus E 3.0</span></button></li>
+      <li><button class="dot" type="button" data-goto="2" aria-current="false"><span class="visually-hidden">Mars I Plus</span></button></li>
+      <li><button class="dot" type="button" data-goto="3" aria-current="false"><span class="visually-hidden">V6000</span></button></li>
+      <li><button class="dot" type="button" data-goto="4" aria-current="false"><span class="visually-hidden">V500</span></button></li>
+      <li><button class="dot" type="button" data-goto="5" aria-current="false"><span class="visually-hidden">Infinity Solar Panel</span></button></li>
       </ul>
-      <div class="arrows">
-        <button class="arrow" type="button" id="prevSlide" aria-label="Previous product">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg>
-        </button>
-        <button class="arrow" type="button" id="nextSlide" aria-label="Next product">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg>
-        </button>
-      </div>
     </div>
   </div>
 </section>
@@ -923,6 +947,29 @@ body.nav-open .burger .icon-bars{display:none}
       <h2 class="display">Our products</h2>
       <p>Prices shown are current promotional pricing and cover the unit only. Delivery and installation are quoted separately.</p>
     </div>
+
+      <h3 class="group">Packages</h3>
+      <p class="group__intro">Complete systems with everything included, quoted as one price.</p>
+      <div class="products">
+
+        <article class="product product--package">
+          <div class="product__shot"><img src="images/mars-i-plus.webp" alt="Marstek Full Solar Set Up" loading="lazy"></div>
+          <h4>Full Solar Set Up</h4>
+          <p class="product__tag">Complete home solar and storage package, installed</p>
+          <p class="price-row"><span class="price">₱750,000</span></p>
+          <p class="product__blurb">Everything a full system needs in one price — panels, inverter, batteries and the labour to put it in. Sized for households currently paying ₱12,000 to ₱18,000 a month.</p>
+
+          <ul class="specs">
+            <li><span>Solar panels</span><span>10 × Infinity — 7.2 kW</span></li>
+            <li><span>Inverter</span><span>1 × Mars I Plus — 6 kW</span></li>
+            <li><span>Batteries</span><span>3 modules — 15 kWh</span></li>
+            <li><span>Installation</span><span>Labour and installation included</span></li>
+            <li><span>Suited to</span><span>Homes billing ₱12,000–18,000 a month</span></li>
+          </ul>
+          <a class="btn btn--outline" href="#buy" data-product="Full Solar Set Up">Ask about this unit</a>
+        </article>
+
+      </div>
 
       <h3 class="group">Home energy storage</h3>
       <p class="group__intro">Permanent systems wired into the house. The bar under each shows usable capacity against the largest unit in this group.</p>
@@ -1283,6 +1330,13 @@ body.nav-open .burger .icon-bars{display:none}
         <legend>Products you are interested in <span aria-hidden="true">*</span></legend>
         <div class="checks">
             <div class="check-group">
+              <p class="check-group__title">Packages</p>
+              <label class="check">
+                <input type="checkbox" name="products" value="Full Solar Set Up">
+                <span>Full Solar Set Up <em>₱750,000</em></span>
+              </label>
+            </div>
+            <div class="check-group">
               <p class="check-group__title">Home energy storage</p>
               <label class="check">
                 <input type="checkbox" name="products" value="Venus E 3.0">
@@ -1529,10 +1583,6 @@ body.nav-open .burger .icon-bars{display:none}
         stop(); start();
       });
     });
-    var nx = document.getElementById('nextSlide'), pv = document.getElementById('prevSlide');
-    if (nx) nx.addEventListener('click', function () { next(); stop(); start(); });
-    if (pv) pv.addEventListener('click', function () { prev(); stop(); start(); });
-
     // pause while the visitor is looking at it or the tab is hidden
     slidesWrap.addEventListener('mouseenter', stop);
     slidesWrap.addEventListener('mouseleave', start);
